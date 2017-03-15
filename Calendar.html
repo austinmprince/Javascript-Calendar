@@ -3,7 +3,7 @@
 	<meta charset="utf-8"/>
 	<title>Calendar Site</title>
 	<link rel="stylesheet" type="text/css" href="calendar.css">
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 </head>
 <body><div id="main">
@@ -34,7 +34,6 @@
 	</div>
 	<br>
 	<div id="loginuser">
-
 	<input type="text" name="username" placeholder="Username" id="username" />
 	<input type="password" name="password" placeholder="Password" id="password" />
 	<button id="login_btn">Login</button></br>
@@ -44,12 +43,12 @@
 	<input type="password" name="newpass" placeholder="New password " id="newpass" />
 	<button id="registernew">Register</button>
 </div>
-	<script type="text/javascript" src="loginAjax.js">
-	</script>
-	<div id="logout" visibility="hidden">
-		<button id="logout_btn">Logout</button>
-		<script type="text/javascript" src="loginAjax.js">
-		</script>
+	<!-- <script type="text/javascript" src="loginAjax.js">
+	</script> -->
+
+		<button id="logout_btn" style="visibility:hidden">Logout</button>
+		<!-- <script type="text/javascript" src="loginAjax.js">
+		</script> -->
 
 		<script type="text/javascript" src="loginAjax.js"></script>
 		<script type="text/javascript" src="calendarfunctions.js"></script>

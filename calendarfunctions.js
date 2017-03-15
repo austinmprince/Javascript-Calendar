@@ -64,21 +64,21 @@ console.log(tempDate);
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
-	// if (currentMonth.month == 11) {
-	// 	currentYear+=1;
-	// }
+	if (currentMonth.month == 0){
+	 	currentYear+=1;
+	}
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 
 }, false);
 
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
 	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
-	// if (currentMonth.month == 0) {
-	// 	currentYear-=1;
-	// }
+	if (currentMonth.month == 11) {
+		currentYear-=1;
+	}
 	updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-	alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 }, false);
 
 
@@ -129,3 +129,10 @@ function clearCalendar() {
 
 
 }
+$("td").click(function() {     // function_td
+	event.preventDefault();
+	$(this).hide("slow");
+});$("tr").click(function() {     // function_td
+	event.preventDefault();
+	$(this).hide("slow");
+});

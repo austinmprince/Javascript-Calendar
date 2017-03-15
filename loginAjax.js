@@ -2,8 +2,7 @@ function loginAjax(event){
 
 var username = document.getElementById("username").value; // Get the username from the form
 var password = document.getElementById("password").value;// Get the password from the form
-//console.log(username);
-//console.log(password);
+
 
 var dataString = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
 
@@ -13,11 +12,11 @@ xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); /
 xmlHttp.addEventListener("load", function(event){
   var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
   if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+    document.getElementById("adduser").style.visibility="hidden";
+    document.getElementById("logout_btn").style.visibility="visible";
     alert("You've been Logged In!");
-    //document.getElementById('loginuser').style.visibility="hidden";
-    document.getElementById('adduser').style.visibility="hidden";
-    document.getElementById('logout').style.visibility="visible";
-  }else{
+  }
+  else{
     alert("You were not logged in.  "+jsonData.message);
   }
 }, false); // Bind the callback to the load event
@@ -54,7 +53,3 @@ function registerAjax(event) {
 }
 
 document.getElementById('registernew').addEventListener('click', registerAjax, false);
-
-// function logoutAjax(event) {
-//   varX
-// }
