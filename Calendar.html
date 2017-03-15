@@ -2,45 +2,43 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Calendar Site</title>
-	<style type="text/css">
-	body{
-		width: 760px; /* how wide to make your web page */
-		background-color: teal; /* what color to make the background */
-		margin: 0 auto;
-		padding: 0;
-		margin-top: 10
-		font:12px/16px Verdana, sans-serif; /* default font */
-	}
-	div#main{
-		background-color: #FFF;
-		margin: 0;
-		padding: 10px;
-	}
-	td[rowspan] {
-		text-align: left;
-		vertical-align: top;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="calendar.css">
+
+
 </head>
 <body><div id="main">
-<!-- <div id="calendarview">
-	<table cellspacing=0 cellpadding=0>
-		<tbody>
-			<tr title="sunday">Sunday</tr>
-			<tr title="monday">Monday</tr>
-			<tr title="tuesday">Tuesday</tr>
-			<tr title="wednesday">Wednesday</tr>
-			<tr title="thursday">Thursday</tr>
-			<tr title="friday">Friday</tr>
-			<tr title="saturday">Saturday</tr>
-			</tr>
 
 
-	<tbody></div>
-	</table> -->
+
+<div id="calendarview">
+	<div class="headercontent">
+  <header>
+    <button id="prev_month_btn"> << </button>
+    <h2 id="month_display">March 2017</h2>
+		<button id="next_month_btn"> >> </button>
+  </header>
+</div>
+<br>
+<table id="calendarmain">
+  <tr>
+    <td>S</td>
+    <td>M</td>
+    <td>T</td>
+    <td>W</td>
+    <td>Th</td>
+    <td>F</td>
+    <td>S</td>
+  </tr>
+	<tbody>
+	</table>
+	</div>
+	<br>
+	<div id="loginuser">
+
 	<input type="text" name="username" placeholder="Username" id="username" />
 	<input type="password" name="password" placeholder="Password" id="password" />
 	<button id="login_btn">Login</button></br>
+</div>
 	<div id="adduser">
 	<input type="text" name="newuser" placeholder="New username" id="newuser" />
 	<input type="password" name="newpass" placeholder="New password " id="newpass" />
@@ -48,6 +46,12 @@
 </div>
 	<script type="text/javascript" src="loginAjax.js">
 	</script>
+	<div id="logout" visibility="hidden">
+		<button id="logout_btn">Logout</button>
+		<script type="text/javascript" src="loginAjax.js">
+		</script>
 
+		<script type="text/javascript" src="loginAjax.js"></script>
+		<script type="text/javascript" src="calendarfunctions.js"></script>
 </div></body>
 </html>
