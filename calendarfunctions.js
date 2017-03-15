@@ -132,7 +132,8 @@ function clearCalendar() {
 $("td").click(function() {     // function_td
 	event.preventDefault();
 	$(this).hide("slow");
-});$("tr").click(function() {     // function_td
+});
+$("tr").click(function() {     // function_td
 	event.preventDefault();
 	$(this).hide("slow");
 });
