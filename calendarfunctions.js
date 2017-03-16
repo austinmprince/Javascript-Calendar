@@ -139,9 +139,11 @@ function clearCalendar() {
 
 
 }
-$('.editable').click(function() {     // function_td
+$('.editable').click(function() {     // function_on
   console.log("row function");
-  // event.preventDefault();
-  // $(this).hide("slow");
   $("#mydialog").dialog();
+});
+
+$('.events').hover(function() {
+  console.log("hover func");
 });

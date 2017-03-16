@@ -7,7 +7,7 @@ function getEvents(day) {
   xmlHttp.open("POST", "getevents.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
-    //console.log(event.target.responseText);
+    console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
 
     if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
@@ -17,8 +17,18 @@ function getEvents(day) {
 
   }
   if (jsonData.exists) {
+
     console.log(jsonData.date);
-    document.getElementById(jsonData.date).append(jsonData.title);
+    var eventdiv = document.createElement("div");
+    for (var i=0; i < jsonData.events.length; i++){
+      eventdiv.appendChild(document.createTextNode(jsonData.events[i].title));
+      eventdiv.setAttribute("class", "events");
+      document.getElementById(sqlday).appendChild(eventdiv);
+    }
+
+    // var eventTitle = document.createTextNode(jsonData.title)
+    // // document.getElementById(jsonData.date).append(br);
+    // document.getElementById(jsonData.date).append(eventTitle);
   }
   // else{
   //   alert("Event fetch fail");

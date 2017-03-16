@@ -18,18 +18,25 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
+  $data = array();
 while($row = $result->fetch_assoc()){
-  echo json_encode(array(
-    "success" => true,
-    "exists" => true,
-    "title" => $row['title'],
-    "description" => $row['description'],
-    "date" => $row['date'],
-    "time" => $row['time']
-  ));
-  exit;
+   array_push($data, array(
+     "title" => $row['title'],
+     "description" => $row['description'],
+     "date" => $row['date'],
+     "time" => $row['time']
+   ));
 }
-
+echo json_encode(array(
+  "success" => true,
+  "exists" => true,
+  "events" => $data
+  // "title" => $row['title'],
+  // "description" => $row['description'],
+  // "date" => $row['date'],
+  // "time" => $row['time']
+));
+exit;
 }
 else {
   echo json_encode(array(
