@@ -5,6 +5,7 @@ function loginAjax(event){
 
 
   var dataString = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+
   //console.log(username);
   //console.log(password);
   var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
@@ -13,17 +14,20 @@ function loginAjax(event){
   //console.log(event.target.responseText);
   xmlHttp.addEventListener("load", function(event){
     //console.log(event.target.responseText);
+
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
     if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
     document.getElementById("adduser").style.visibility="hidden";
     document.getElementById("logout_btn").style.visibility="visible";
     document.getElementById("loginuser").style.visibility="hidden";
+
     alert("You've been logged in!");
     //console.log(jsonData.token);
     loggedin = true;
     updateCalendar(true);
 
     // getEvents();
+
 
   }
   else{
@@ -80,6 +84,7 @@ function logoutAjax(event) {
       document.getElementById("password").value="";
       loggedin = false;
       updateCalendar(false);
+
     }
     else {
       alert("Logout Failed. "+jsonData.message);

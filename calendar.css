@@ -25,9 +25,11 @@ table {
 td {
   border: 1px solid #ccc;
   color: #444;
+
   line-height: 80px;
   /*text-align: center;
   /*vertical-align: top;*/
+
 }
 tr:first-child td {
   color: #222;
@@ -35,7 +37,9 @@ tr:first-child td {
   font-weight: 700;
   line-height: 22px;
   text-align: center;
+
   vertical-align: center;
+
 }
 .headercontent{
   width:100%;
@@ -44,6 +48,7 @@ tr:first-child td {
   text-align:center;
 
 }
+
 .editable {
   height: 83px;
   width: 89.9667px;

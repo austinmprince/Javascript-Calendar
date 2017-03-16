@@ -1,51 +1,51 @@
 var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var loggedin = false;
 (function() {
-    Date.prototype.deltaDays = function(c) {
-        return new Date(this.getFullYear(), this.getMonth(), this.getDate() + c)
-    };
-    Date.prototype.getSunday = function() {
-        return this.deltaDays(-1 * this.getDay())
-    }
+  Date.prototype.deltaDays = function(c) {
+    return new Date(this.getFullYear(), this.getMonth(), this.getDate() + c)
+  };
+  Date.prototype.getSunday = function() {
+    return this.deltaDays(-1 * this.getDay())
+  }
 })();
 
 function Week(c) {
-    this.sunday = c.getSunday();
-    this.nextWeek = function() {
-        return new Week(this.sunday.deltaDays(7))
-    };
-    this.prevWeek = function() {
-        return new Week(this.sunday.deltaDays(-7))
-    };
-    this.contains = function(b) {
-        return this.sunday.valueOf() === b.getSunday().valueOf()
-    };
-    this.getDates = function() {
-        for (var b = [], a = 0; 7 > a; a++) b.push(this.sunday.deltaDays(a));
-        return b
-    }
+  this.sunday = c.getSunday();
+  this.nextWeek = function() {
+    return new Week(this.sunday.deltaDays(7))
+  };
+  this.prevWeek = function() {
+    return new Week(this.sunday.deltaDays(-7))
+  };
+  this.contains = function(b) {
+    return this.sunday.valueOf() === b.getSunday().valueOf()
+  };
+  this.getDates = function() {
+    for (var b = [], a = 0; 7 > a; a++) b.push(this.sunday.deltaDays(a));
+    return b
+  }
 }
 
 function Month(c, b) {
-    this.year = c;
-    this.month = b;
-    this.nextMonth = function() {
-        return new Month(c + Math.floor((b + 1) / 12), (b + 1) % 12)
-    };
-    this.prevMonth = function() {
-        return new Month(c + Math.floor((b - 1) / 12), (b + 11) % 12)
-    };
-    this.getDateObject = function(a) {
-        return new Date(this.year, this.month, a)
-    };
-    this.getWeeks = function() {
-        var a = this.getDateObject(1),
-            b = this.nextMonth().getDateObject(0),
-            c = [],
-            a = new Week(a);
-        for (c.push(a); !a.contains(b);) a = a.nextWeek(), c.push(a);
-        return c
-    }
+  this.year = c;
+  this.month = b;
+  this.nextMonth = function() {
+    return new Month(c + Math.floor((b + 1) / 12), (b + 1) % 12)
+  };
+  this.prevMonth = function() {
+    return new Month(c + Math.floor((b - 1) / 12), (b + 11) % 12)
+  };
+  this.getDateObject = function(a) {
+    return new Date(this.year, this.month, a)
+  };
+  this.getWeeks = function() {
+    var a = this.getDateObject(1),
+    b = this.nextMonth().getDateObject(0),
+    c = [],
+    a = new Week(a);
+    for (c.push(a); !a.contains(b);) a = a.nextWeek(), c.push(a);
+    return c
+  }
 };
 
 var currentDate = new Date();
@@ -59,6 +59,7 @@ var tempweekday= tempDate.getDay();
 var tempweekday2 = tempweekday;
 //console.log(tempDate);
 
+
 updateCalendar(loggedin);
 
 // Change the month when the "next" button is pressed
@@ -70,21 +71,25 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
 	updateCalendar(loggedin); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
 
+
 }, false);
 
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
+
 	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
 	if (currentMonth.month == 11) {
 		currentYear-=1;
 	}
 	updateCalendar(loggedin); // Whenever the month is updated, we'll need to re-render the calendar in HTML
 	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+
 }, false);
 
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar(logincheck){
+
 
 	clearCalendar()
 	var weeks = currentMonth.getWeeks();
@@ -129,16 +134,18 @@ function updateCalendar(logincheck){
 		document.getElementById('calendarmain').appendChild(weekrow);
 		}
 	}
+
 }
 
 function clearCalendar() {
-	var main = document.getElementById('calendarmain');
-	while (main.childNodes.length > 2) {
+  var main = document.getElementById('calendarmain');
+  while (main.childNodes.length > 2) {
     main.removeChild(main.lastChild);
-}
+  }
 
 
 }
+
 $('.editable').click(function() {     // function_on
   console.log("row function");
   $("#mydialog").dialog();
@@ -146,4 +153,10 @@ $('.editable').click(function() {     // function_on
 
 $('.events').hover(function() {
   console.log("hover func");
+
 });
+// $("tr").click(function() {     // function_td
+//   console.log("tr function");
+//   event.preventDefault();
+//   $(this).hide("slow");
+// });

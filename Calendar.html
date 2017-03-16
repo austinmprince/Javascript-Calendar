@@ -13,6 +13,7 @@
 
 
 
+
 <div id="calendarview">
 	<div class="headercontent">
   <header>
@@ -52,14 +53,26 @@
 	<!-- <script type="text/javascript" src="loginAjax.js">
 	</script> -->
 
-		<button id="logout_btn" style="visibility:hidden">Logout</button>
+
+		<div id="loginuser">
+			<input type="text" name="username" placeholder="Username" id="username" autocomplete="off"/>
+			<input type="password" name="password" placeholder="Password" id="password" autocomplete="off"/>
+			<button id="login_btn">Login</button></br>
+		</div>
+		<div id="adduser">
+			<input type="text" name="newuser" placeholder="New username" id="newuser" />
+			<input type="password" name="newpass" placeholder="New password " id="newpass" />
+			<button id="registernew">Register</button>
+		</div>
 		<!-- <script type="text/javascript" src="loginAjax.js">
+
 		</script> -->
 		<script type="text/javascript" src="events.js"></script>
 		<script type="text/javascript" src="loginAjax.js"></script>
 
 
 		<script type="text/javascript" src="calendarfunctions.js"></script>
+
 
 </div></body>
 </html>
