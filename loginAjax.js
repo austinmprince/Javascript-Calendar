@@ -12,14 +12,14 @@ function loginAjax(event){
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   //console.log(event.target.responseText);
   xmlHttp.addEventListener("load", function(event){
-    console.log(event.target.responseText);
+    //console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
     if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
     document.getElementById("adduser").style.visibility="hidden";
     document.getElementById("logout_btn").style.visibility="visible";
     document.getElementById("loginuser").style.visibility="hidden";
     alert("You've been logged in!");
-    console.log(jsonData.token);
+    //console.log(jsonData.token);
     loggedin = true;
     updateCalendar(true);
 
@@ -79,6 +79,7 @@ function logoutAjax(event) {
       document.getElementById("username").value="";
       document.getElementById("password").value="";
       loggedin = false;
+      updateCalendar(false);
     }
     else {
       alert("Logout Failed. "+jsonData.message);

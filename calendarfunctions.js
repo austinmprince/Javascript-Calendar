@@ -112,13 +112,16 @@ function updateCalendar(logincheck){
 
 				var tablecell = document.createElement("td");
 				tablecell.appendChild(document.createTextNode(days[d].getDate()));
-				tablecell.setAttribute("id", days[d]);
+				tablecell.setAttribute("id", days[d].toISOString().substring(0,10));
         tablecell.setAttribute("class", "editable");
 				weekrow.appendChild(tablecell);
         var sqlday = days[d].toISOString().substring(0,10);
         if (logincheck == true) {
-          console.log(sqlday);
-          getEvents(sqlday);
+          //console.log(sqlday);
+          //getEvents(sqlday);
+        //  console.log(getEvents(sqlday));
+        getEvents(sqlday);
+
         }
 
 
