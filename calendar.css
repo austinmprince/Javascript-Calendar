@@ -37,3 +37,6 @@ tr:first-child td {
   text-align:center;
 
 }
+#mydialog {
+  display: none;
+}

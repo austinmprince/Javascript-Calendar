@@ -6,11 +6,7 @@
     // Much of the following code is taken from the course wiki and modified slightly
     $stmt = $mysqli->prepare("SELECT COUNT(*), username, password, user_id FROM users WHERE username=?");
     if(!$stmt){
-      echo json_encode(array(
-        "success" => false,
-        "message" => $mysqli->error;
-      ));
-  	  // printf("Query Prep Failed: %s\n", $mysqli->error);
+  	  printf("Query Prep Failed: %s\n", $mysqli->error);
   	  exit;
     }
     $user = (String)$_POST['username'];
@@ -29,7 +25,7 @@
       // Create token for CSRF
       $_SESSION['token'] = substr(md5(rand()), 0, 10);
       $_SESSION['user_id'] = $user_id;
-      echo json_encode(array("success" => true, "token" => $_SESSION['token']));
+      echo json_encode(array("success" => true));
       exit;
     }
     else{
@@ -40,4 +36,3 @@
       exit;
     }
 //}
-?>

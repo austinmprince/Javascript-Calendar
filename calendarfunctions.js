@@ -59,7 +59,7 @@ var tempweekday= tempDate.getDay();
 var tempweekday2 = tempweekday;
 console.log(tempDate);
 
-
+updateCalendar();
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
@@ -100,18 +100,19 @@ function updateCalendar(){
 				var tablecell = document.createElement("td");
 				tablecell.appendChild(document.createTextNode(""));
 				weekrow.appendChild(tablecell);
-				console.log("Not in current month");
-				console.log(days[d].getMonth());
+			//	console.log("Not in current month");
+			//	console.log(days[d].getMonth());
 
 			}
 			// You can see console.log() output in your JavaScript debugging tool, like Firebug,
 			// WebWit Inspector, or Dragonfly.
 			else {
-				console.log(days[d]);
+			//	console.log(days[d]);
 
 				var tablecell = document.createElement("td");
 				tablecell.appendChild(document.createTextNode(days[d].getDate()));
 				tablecell.setAttribute("id", days[d]);
+        tablecell.setAttribute("class", "editable");
 				weekrow.appendChild(tablecell);
 
 
@@ -129,11 +130,9 @@ function clearCalendar() {
 
 
 }
-$("td").click(function() {     // function_td
-	event.preventDefault();
-	$(this).hide("slow");
-});
-$("tr").click(function() {     // function_td
-	event.preventDefault();
-	$(this).hide("slow");
+$('.editable').click(function() {     // function_td
+  console.log("row function");
+  // event.preventDefault();
+  // $(this).hide("slow");
+  $("#mydialog").dialog();
 });

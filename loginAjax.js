@@ -5,10 +5,12 @@ function loginAjax(event){
 
 
   var dataString = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
-
+  console.log(username);
+  console.log(password);
   var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
   xmlHttp.open("POST", "login.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
+  console.log(event.target.responseText);
   xmlHttp.addEventListener("load", function(event){
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
     if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
