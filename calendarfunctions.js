@@ -57,7 +57,7 @@ var tempMonth = month+1;
 var tempDate = new Date(tempMonth +' 1 ,'+currentYear);
 var tempweekday= tempDate.getDay();
 var tempweekday2 = tempweekday;
-console.log(tempDate);
+//console.log(tempDate);
 
 updateCalendar();
 
@@ -100,14 +100,16 @@ function updateCalendar(){
         var tablecell = document.createElement("td");
         tablecell.appendChild(document.createTextNode(""));
         weekrow.appendChild(tablecell);
-        console.log("Not in current month");
-        console.log(days[d].getMonth());
+        //console.log("Not in current month");
+        //console.log(days[d].getMonth());
+        getEvents(days[d]);
+//        console.log(days[d]);
 
       }
       // You can see console.log() output in your JavaScript debugging tool, like Firebug,
       // WebWit Inspector, or Dragonfly.
       else {
-        console.log(days[d]);
+        //console.log(days[d]);
 
         var tablecell = document.createElement("td");
         tablecell.appendChild(document.createTextNode(days[d].getDate()));
