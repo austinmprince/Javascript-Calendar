@@ -4,7 +4,7 @@ header("Content-Type: application/json");
 session_start();
 $user_id = $_SESSION['user_id'];
 $date = $_POST['date'];
-$stmt = $mysqli->prepare("select title, description, date, time from events where events.user_id=? and date=?");
+$stmt = $mysqli->prepare("select title, description, date, time, event_id from events where events.user_id=? and date=?");
 if(!$stmt){
   echo json_encode(array(
     "success" => false,
@@ -23,7 +23,8 @@ while($row = $result->fetch_assoc()){
      "title" => $row['title'],
      "description" => $row['description'],
      "date" => $row['date'],
-     "time" => $row['time']
+     "time" => $row['time'],
+     "event_id" => $row['event_id']
    ));
 }
 echo json_encode(array(
