@@ -21,12 +21,16 @@ function getEvents(day) {
   }
   if (jsonData.exists) {
 
-    console.log(jsonData.date);
-    var eventdiv = document.createElement("div");
+    //console.log(jsonData.date);
+    var eventdiv = document.createElement("span");
+    var br = document.createElement("br");
     for (var i=0; i < jsonData.events.length; i++){
       eventdiv.appendChild(document.createTextNode(jsonData.events[i].title));
+      document.getElementById(sqlday).appendChild(br);
       eventdiv.setAttribute("class", "events");
+      eventdiv.setAttribute("id", jsonData.events[i].event_id);
       document.getElementById(sqlday).appendChild(eventdiv);
+
     }
 
     // var eventTitle = document.createTextNode(jsonData.title)
