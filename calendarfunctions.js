@@ -152,10 +152,11 @@ $(document).on("click", ".editable", function() {
     console.log('clicked');
   }
 });
-$(document).on("click", ".save_btn", function() {
+$(document).on("click", "#save_btn", function() {
     if (loggedin == true) {
-      $("#mydialog").dialog('close');
       console.log("Close box");
+      $("#mydialog").dialog('close');
+
     }
 });
 //

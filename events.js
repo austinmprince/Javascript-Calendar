@@ -63,7 +63,7 @@ function createEvent() {
         updateCalendar(loggedin);
       }
       else {
-        alert("Event failed to add" + jsonData.message);
+        alert("Event failed to add " + jsonData.message);
       }
 
   	}, false);
