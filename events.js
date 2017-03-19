@@ -222,9 +222,55 @@ function saveChanges(){
 document.getElementById("save_changes_btn").addEventListener("click", saveChanges, false);
 
 function editEvent(event_id){
+
   var dataString = "event_id=" + encodeURIComponent(event_id);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "editEvent.php", true);
+  xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xmlHttp.addEventListener("load", function(event){
+    var jsonData = JSON.parse(event.target.responseText);
+    if(jsonData.success){
+      var title_elem = $('#title');
+      var description_elem = $('#description');
+      var date_elem = $('#date');
+      var time_elem = $('#time');
+      var save_btn = $('#save_btn');
+      var save_changes_btn = $('#save_changes_btn');
+      var dialog_box = $('#mydialog');
+
+      // var save_changes_btn = document.createElement("INPUT");
+      // save_changes_btn.setAttribute("type","submit");
+      // save_changes_btn.setAttribute("value","Save Changes");
+      // save_changes_btn.setAttribute("id","save_changes_btn");
+      // dialog_box.append(save_changes_btn);
+
+      var event_id_elem = document.createElement('INPUT');
+      event_id_elem.setAttribute("type", "hidden");
+      event_id_elem.setAttribute("name", "event_id");
+      event_id_elem.setAttribute("value", event_id);
+      event_id_elem.setAttribute("id", "e_id");
+      dialog_box.append(event_id_elem);
+
+      title_elem.val(jsonData.title);
+      description_elem.val(jsonData.description);
+      date_elem.val(jsonData.date);
+      time_elem.val(jsonData.time);
+      save_changes_btn.show();
+      // save_changes_btn.css("visibility","visible");
+      save_btn.hide();
+    }else{
+      alert("Event not found");
+    }
+  }, false);
+  xmlHttp.send(dataString);
+}
+
+document.getElementById("save_btn").addEventListener("click", createEvent, false);
+
+function deleteEvent(event_id){
+  var dataString = "event_id=" + encodeURIComponent(event_id);
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", "deleteEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlHttp.addEventListener("load", function(event){
     var jsonData = JSON.parse(event.target.responseText);

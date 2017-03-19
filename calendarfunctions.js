@@ -207,30 +207,41 @@ $(document).on("click", ".extraevents", function() {
   }
 });
 
-$(document).on("click", "#close_events", function(){
-    if (loggedin == true) {
-      console.log("Close box");
-      $("#showmore").dialog('close');
-      var main = document.getElementById('showmore');
-      while (main.childNodes.length > 2) {
-          main.removeChild(main.lastChild);
-      }
-
-    }
-});
-// $( "#showmore" ).dialog({
+// $(document).on("click", "#close_events", function(){
+//     if (loggedin == true) {
+//       console.log("Close box");
+//       $("#showmore").dialog('close');
+//       var main = document.getElementById('showmore');
+//       while (main.childNodes.length > 2) {
+//           main.removeChild(main.lastChild);
+//       }
 //
-//   close: function() {
-//     if (loggedin) {
-//     console.log("close me");
-//     var main = document.getElementById('showmore');
-//     while (main.childNodes.length > 1) {
-//       main.removeChild(main.lastChild);
 //     }
-//
-//   }
-// }
 // });
+// $('#showmore').dialog({
+//    beforeClose: function(event, ui) {
+//      var main = document.getElementById('showmore');
+//      while (main.childNodes.length > 1) {
+//         main.removeChild(main.lastChild);
+//     }
+//        //call functions
+//
+//    }
+// });
+$( "#showmore" ).dialog({
+
+  close: function() {
+    if (loggedin == true) {
+    console.log("close me");
+    var main = document.getElementById('showmore');
+    while (main.childNodes.length > 1) {
+      main.removeChild(main.lastChild);
+    }
+
+  }
+  return false;
+}
+});
 
 $(document).ready(function () {
     $(".extraevents").hover(function () {
