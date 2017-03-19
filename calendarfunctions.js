@@ -146,10 +146,24 @@ function clearCalendar() {
 
 }
 
-$('.editable').click(function() {     // function_on
-  console.log("row function");
-  $("#mydialog").dialog();
+$(document).on("click", ".editable", function() {
+  if (loggedin == true) {
+    $("#mydialog").dialog();
+    console.log('clicked');
+  }
 });
+$(document).on("click", "#save_btn", function() {
+    if (loggedin == true) {
+      console.log("Close box");
+      $("#mydialog").dialog('close');
+
+    }
+});
+//
+// $('.editable').click(function() {     // function_on
+//   console.log("row function");
+//   $("#mydialog").dialog();
+// });
 
 $('.events').hover(function() {
   console.log("hover func");
