@@ -149,12 +149,14 @@ function clearCalendar() {
 $(document).on("click", ".editable", function() {
   if (loggedin == true) {
     $("#mydialog").dialog();
+    console.log(event.target.id);
     console.log('clicked');
   }
 });
 $(document).on("click", "#save_btn", function() {
     if (loggedin == true) {
       console.log("Close box");
+
       $("#mydialog").dialog('close');
 
     }
