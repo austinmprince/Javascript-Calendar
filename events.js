@@ -25,7 +25,6 @@ function getEvents(day) {
     var eventdiv = document.createElement("p");
     var br = document.createElement("br");
     var extraevents = document.createElement("p")
-    extraevents.setAttribute("id", jsonData.events.date);
     extraevents.setAttribute("class", "extraevents");
 
 
@@ -43,6 +42,7 @@ function getEvents(day) {
       else {
         console.log("in extra");
         extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
+        extraevents.setAttribute("id", sqlday);
         document.getElementById(sqlday).appendChild(extraevents);
         break;
       }

@@ -175,8 +175,19 @@ $('.events').hover(function() {
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
     console.log("Extra events");
-    console.log(getEvents(sqlday));
+    console.log(event.target.id);
+    console.log(getEvents(event.target.id));
   }
+});
+
+$(document).ready(function () {
+    $(".extraevents").hover(function () {
+      console.log("hovering");
+        $(this).animate({
+            borderBottom: '2px solid #3399FF',
+            width : '46%'
+        }, 500);
+    });
 });
 // $("tr").click(function() {     // function_td
 //   console.log("tr function");

@@ -64,8 +64,16 @@ tr:first-child td {
 #mydialog {
   display: none;
 }
+#showmore {
+  display: none;
+}
 .extraevents {
   padding: 0;
   margin: 0;
   color: blue;
+
+}
+
+.extraevents:hover{
+    text-decoration: underline;
 }
