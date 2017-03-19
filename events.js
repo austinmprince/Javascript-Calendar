@@ -1,5 +1,4 @@
 function getEvents(day) {
-
   var date = new Date(day);
   var sqlday = date.toISOString().substring(0,10);
   //console.log(sqlday);
@@ -20,12 +19,20 @@ function getEvents(day) {
 
   }
   if (jsonData.exists) {
-
-    //console.log(jsonData.date);
-    var eventdiv = document.createElement("p");
+    var eventdiv = document.createElement("div");
     var br = document.createElement("br");
+// <<<<<<< HEAD
     var extraevents = document.createElement("p")
     extraevents.setAttribute("class", "extraevents");
+// =======
+//     for (var i=0; i < jsonData.events.length; i++){
+//       eventdiv.appendChild(document.createTextNode(jsonData.events[i].title));
+//       eventdiv.appendChild(br);
+//       document.getElementById(sqlday).appendChild(br);
+//       eventdiv.setAttribute("class", "events");
+//       eventdiv.setAttribute("id", jsonData.events[i].event_id);
+//       document.getElementById(sqlday).appendChild(eventdiv);
+// >>>>>>> e648ae8079bb69318ca9c93a71912b404d4ce3dd
 
     var numevents = jsonData.events.length;
     if (numevents < 2) {
@@ -49,6 +56,9 @@ function getEvents(day) {
         eventdiv.setAttribute("id", jsonData.events[i].event_id);
         if (i < 2) {
           document.getElementById(sqlday).appendChild(eventdiv);
+        }
+        else {
+          eventdiv.setAttribute("type", "hidden");
         }
       }
       extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
@@ -118,6 +128,7 @@ function createEvent() {
 
 document.getElementById("save_btn").addEventListener("click", createEvent, false);
 
+
 function convert(timeinput) {
   time = timeinput.split(':'); // convert to array
 
@@ -144,3 +155,79 @@ function convert(timeinput) {
   }
   return timeValue;
 }
+
+function saveChanges(){
+    var title = document.getElementById("title").value;
+    var date = document.getElementById("date").value;
+    var time = document.getElementById("time").value;
+    var notes = document.getElementById("description").value;
+    var event_id = document.getElementById("e_id").value;
+
+    var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&event_id=" + encodeURIComponent(event_id);
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "saveChanges.php", true);
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttp.addEventListener("load", function(event){
+      var jsonData = JSON.parse(event.target.responseText);
+      if(jsonData.success){
+        $('#title').val("");
+        $('#description').val("");
+        $('#date').val("");
+        $('#time').val("");
+        $('#save_btn').show();
+        $('#save_changes_btn').hide();
+        updateCalendar(loggedin);
+      }else{
+        alert("Event failed to edit");
+      }
+
+    }, false);
+    xmlHttp.send(dataString);
+}
+
+document.getElementById("save_changes_btn").addEventListener("click", saveChanges, false);
+
+function editEvent(event_id){
+  var dataString = "event_id=" + encodeURIComponent(event_id);
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open("POST", "editEvent.php", true);
+  xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xmlHttp.addEventListener("load", function(event){
+    var jsonData = JSON.parse(event.target.responseText);
+    if(jsonData.success){
+      var title_elem = $('#title');
+      var description_elem = $('#description');
+      var date_elem = $('#date');
+      var time_elem = $('#time');
+      var save_btn = $('#save_btn');
+      var save_changes_btn = $('#save_changes_btn');
+      var dialog_box = $('#mydialog');
+
+      // var save_changes_btn = document.createElement("INPUT");
+      // save_changes_btn.setAttribute("type","submit");
+      // save_changes_btn.setAttribute("value","Save Changes");
+      // save_changes_btn.setAttribute("id","save_changes_btn");
+      // dialog_box.append(save_changes_btn);
+
+      var event_id_elem = document.createElement('INPUT');
+      event_id_elem.setAttribute("type", "hidden");
+      event_id_elem.setAttribute("name", "event_id");
+      event_id_elem.setAttribute("value", event_id);
+      event_id_elem.setAttribute("id", "e_id");
+      dialog_box.append(event_id_elem);
+
+      title_elem.val(jsonData.title);
+      description_elem.val(jsonData.description);
+      date_elem.val(jsonData.date);
+      time_elem.val(jsonData.time);
+      save_changes_btn.show();
+      // save_changes_btn.css("visibility","visible");
+      save_btn.hide();
+    }else{
+      alert("Event not found");
+    }
+  }, false);
+  xmlHttp.send(dataString);
+}
+
+document.getElementById("save_btn").addEventListener("click", createEvent, false);

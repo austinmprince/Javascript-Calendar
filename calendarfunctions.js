@@ -152,8 +152,17 @@ $(document).on("click", ".editable", function() {
     console.log(event.target.id);
     document.getElementById('date').value = event.target.id;
     console.log('clicked');
+
+    $('#title').val("");
+    $('#description').val("");
+    //$('#date').val("");
+    $('#time').val("");
+    $('#save_btn').show();
+    $('#save_changes_btn').hide();
+
   }
 });
+
 $(document).on("click", "#save_btn", function() {
     if (loggedin == true) {
       console.log("Close box");
@@ -162,11 +171,26 @@ $(document).on("click", "#save_btn", function() {
 
     }
 });
+
+$(document).on("click", "#save_changes_btn", function(){
+    if (loggedin == true) {
+      console.log("Close box");
+      $("#mydialog").dialog('close');
+    }
+});
+
 //
 // $('.editable').click(function() {     // function_on
 //   console.log("row function");
 //   $("#mydialog").dialog();
 // });
+
+$(document).on("click", ".events", function(){
+  editEvent(this.id);
+  $("#mydialog").dialog();
+  console.log('clicked');
+});
+
 
 $('.events').hover(function() {
   console.log("hover func");
