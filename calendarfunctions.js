@@ -189,6 +189,7 @@ $(document).on("click", ".events", function(){
   editEvent(this.id);
   $("#mydialog").dialog();
   console.log('clicked');
+  document.getElementById("single_event_id").value = event.target.id;
 });
 
 

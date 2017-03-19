@@ -239,9 +239,11 @@ function editEvent(event_id){
 
 document.getElementById("save_btn").addEventListener("click", createEvent, false);
 
-function deleteEvent(event_id){
-  var id = event.target.id;
-  console.log(id);
+function deleteEvent(){
+  // console.log(document.getElementById("single_event_id"));
+  // console.log("single_event_id");
+  // console.log(id);
+  var id = document.getElementById("single_event_id").value;
   var dataString = "event_id=" + encodeURIComponent(id);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "deleteEvent.php", true);
