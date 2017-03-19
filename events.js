@@ -27,27 +27,55 @@ function getEvents(day) {
     var extraevents = document.createElement("p")
     extraevents.setAttribute("class", "extraevents");
 
-
-    for (var i=0; i < jsonData.events.length; i++){
-      if (i < 2) {
-      eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-      eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-      eventdiv.appendChild(document.createElement("br"));
-    //  console.log(eventdiv);
-      eventdiv.setAttribute("class", "events");
-      eventdiv.setAttribute("id", jsonData.events[i].event_id);
-      document.getElementById(sqlday).appendChild(eventdiv);
-      }
-
-      else {
-        console.log("in extra");
-        extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
-        extraevents.setAttribute("id", sqlday);
-        document.getElementById(sqlday).appendChild(extraevents);
-        break;
-      }
-
+    var numevents = jsonData.events.length;
+    if (numevents < 2) {
+      for (var i=0; i < jsonData.events.length; i++){
+        eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+        eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+        eventdiv.appendChild(document.createElement("br"));
+      //  console.log(eventdiv);
+        eventdiv.setAttribute("class", "events");
+        eventdiv.setAttribute("id", jsonData.events[i].event_id);
+        document.getElementById(sqlday).appendChild(eventdiv);
+        }
     }
+    else {
+      for (var i=0; i < jsonData.events.length; i++){
+        eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+        eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+        eventdiv.appendChild(document.createElement("br"));
+      //  console.log(eventdiv);
+        eventdiv.setAttribute("class", "events");
+        eventdiv.setAttribute("id", jsonData.events[i].event_id);
+        if (i < 2) {
+          document.getElementById(sqlday).appendChild(eventdiv);
+        }
+      }
+      extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
+      extraevents.setAttribute("id", sqlday);
+      document.getElementById(sqlday).appendChild(extraevents);
+    }
+    // for (var i=0; i < jsonData.events.length; i++){
+    //   if (i < 2) {
+    //   eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+    //   eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+    //   eventdiv.appendChild(document.createElement("br"));
+    // //  console.log(eventdiv);
+    //   eventdiv.setAttribute("class", "events");
+    //   eventdiv.setAttribute("id", jsonData.events[i].event_id);
+    //   document.getElementById(sqlday).appendChild(eventdiv);
+    //   }
+    //
+    //   else {
+    //     console.log("in extra");
+    //     extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
+    //     extraevents.setAttribute("id", sqlday);
+    //     document.getElementById(sqlday).appendChild(extraevents);
+    //     break;
+    //   }
+    //
+    // }
+
 
     }
 

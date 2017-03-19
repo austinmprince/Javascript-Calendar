@@ -176,7 +176,9 @@ $(document).on("click", ".extraevents", function() {
   if (loggedin) {
     console.log("Extra events");
     console.log(event.target.id);
-    console.log(getEvents(event.target.id));
+    //console.log(getEvents(event.target.id));
+    $("#showmore").dialog();
+    $("#showmore").text(getEvents(event.target.id));
   }
 });
 
