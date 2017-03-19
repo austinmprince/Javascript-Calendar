@@ -149,9 +149,8 @@ function clearCalendar() {
 $(document).on("click", ".editable", function() {
   if (loggedin == true) {
     $("#mydialog").dialog();
-    console.log(event.target.id);
-    document.getElementById('date').value = event.target.id;
-    console.log('clicked');
+    // console.log("clicked edit " + event.target.id);
+    // document.getElementById('date').value = event.target.id;
 
     $('#title').val("");
     $('#description').val("");
@@ -165,7 +164,6 @@ $(document).on("click", ".editable", function() {
 
 $(document).on("click", "#save_btn", function() {
     if (loggedin == true) {
-      console.log("Close box");
 
       $("#mydialog").dialog('close');
 
@@ -174,7 +172,6 @@ $(document).on("click", "#save_btn", function() {
 
 $(document).on("click", "#save_changes_btn", function(){
     if (loggedin == true) {
-      console.log("Close box");
       $("#mydialog").dialog('close');
     }
 });
@@ -188,12 +185,11 @@ $(document).on("click", "#save_changes_btn", function(){
 $(document).on("click", ".events", function(){
   editEvent(this.id);
   $("#mydialog").dialog();
-  console.log('clicked');
+  document.getElementById("single_event_id").value = event.target.id;
 });
 
 
 $('.events').hover(function() {
-  console.log("hover func");
 
 });
 $(document).on("click", ".extraevents", function() {
