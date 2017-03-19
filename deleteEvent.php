@@ -18,7 +18,7 @@
   $stmt->bind_param('s', $id_num);
   $stmt->execute();
   $stmt->close();
-  // Then we delete the actual story itself
+  // Then we delete the actual event itself
   $stmt = $mysqli->prepare("delete from events where event_id=?");
   if(!$stmt){
     printf("Query Prep Failed: %s\n", $mysqli->error);
