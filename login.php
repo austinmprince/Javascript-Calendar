@@ -20,6 +20,7 @@
     // the given username
     if($cnt == 1 && password_verify($pwd_guess, $pwd_hash)){
       // Login succeeded!
+      ini_set("session.cookie_httponly", 1);
       session_start();
       $_SESSION['username'] = $username;
       // Create token for CSRF

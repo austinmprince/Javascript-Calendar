@@ -150,6 +150,7 @@ $(document).on("click", ".editable", function() {
   if (loggedin == true) {
     $("#mydialog").dialog();
     console.log(event.target.id);
+    document.getElementById('date').value = event.target.id;
     console.log('clicked');
   }
 });
@@ -170,6 +171,12 @@ $(document).on("click", "#save_btn", function() {
 $('.events').hover(function() {
   console.log("hover func");
 
+});
+$(document).on("click", ".extraevents", function() {
+  if (loggedin) {
+    console.log("Extra events");
+    console.log(getEvents(sqlday));
+  }
 });
 // $("tr").click(function() {     // function_td
 //   console.log("tr function");

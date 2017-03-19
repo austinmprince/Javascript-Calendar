@@ -1,6 +1,7 @@
 <?php
 require 'database.php';
 header("Content-Type: application/json");
+ini_set("session.cookie_httponly", 1);
 session_start();
 $user_id = $_SESSION['user_id'];
 $date = $_POST['date'];
