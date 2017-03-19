@@ -7,63 +7,72 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+
 </head>
 <body><div id="main">
-
-
-
-	<div id="calendarview">
-		<div class="headercontent">
-			<header>
-				<button id="prev_month_btn"> << </button>
-				<h2 id="month_display">March 2017</h2>
-				<button id="next_month_btn"> >> </button>
-			</header>
-		</div>
-		<br>
-		<table id="calendarmain">
-			<tr>
-				<td>S</td>
-				<td>M</td>
-				<td>T</td>
-				<td>W</td>
-				<td>Th</td>
-				<td>F</td>
-				<td>S</td>
-			</tr>
-			<tbody>
-			</table>
-		</div>
-		<br>
-		<div id="mydialog">
+<div id="calendarview">
+	<div class="headercontent">
+  <header>
+    <button id="prev_month_btn"> << </button>
+    <h2 id="month_display">March 2017</h2>
+		<button id="next_month_btn"> >> </button>
+  </header>
+</div>
+<br>
+<table id="calendarmain">
+  <tr>
+    <td>S</td>
+    <td>M</td>
+    <td>T</td>
+    <td>W</td>
+    <td>Th</td>
+    <td>F</td>
+    <td>S</td>
+  </tr>
+	<tbody>
+	</table>
+	</div>
+	<br>
+	<div id="mydialog">
 			<h4>Add Event</h4>
 				Event:<input type="text" name="title" id="title">
 				Date:<input type="date" name="date" id="date">
+				<script>
+					document.getElementById('date').value = document.getElementById('sqlday').value
+					console.log(sqlday);
+					
+				</script>
 				Time:<input type="time" name="time" id="time">
 				Notes:<textarea name="description" id="description"></textarea>
-				<input type="submit" name="Save" id="save_btn">
+				<input type="submit" name="Save" value="Add Event" id="save_btn">
 		</div>
+
+
+
+
+
 
 		<div id="loginuser">
 			<input type="text" name="username" placeholder="Username" id="username" autocomplete="off"/>
 			<input type="password" name="password" placeholder="Password" id="password" autocomplete="off"/>
-			
 			<button id="login_btn">Login</button></br>
 		</div>
 		<div id="adduser">
 			<input type="text" name="newuser" placeholder="New username" id="newuser" />
 			<input type="password" name="newpass" placeholder="New password " id="newpass" />
 			<button id="registernew">Register</button>
+
 		</div>
-		<!-- <script type="text/javascript" src="loginAjax.js">
-	</script> -->
+		<button id="logout_btn">Logout</button>
 
-	<button id="logout_btn" style="visibility:hidden">Logout</button>
-	<!-- <script type="text/javascript" src="loginAjax.js">
-</script> -->
 
-<script type="text/javascript" src="loginAjax.js"></script>
-<script type="text/javascript" src="events.js"></script>
-<script type="text/javascript" src="calendarfunctions.js"></script>
+
+		<script type="text/javascript" src="events.js"></script>
+		<script type="text/javascript" src="loginAjax.js"></script>
+
+
+		<script type="text/javascript" src="calendarfunctions.js"></script>
+
+
 </div></body>
 </html>

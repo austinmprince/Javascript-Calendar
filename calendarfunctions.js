@@ -1,5 +1,5 @@
 var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+var loggedin = false;
 (function() {
   Date.prototype.deltaDays = function(c) {
     return new Date(this.getFullYear(), this.getMonth(), this.getDate() + c)
@@ -57,69 +57,84 @@ var tempMonth = month+1;
 var tempDate = new Date(tempMonth +' 1 ,'+currentYear);
 var tempweekday= tempDate.getDay();
 var tempweekday2 = tempweekday;
-console.log(tempDate);
+//console.log(tempDate);
 
-updateCalendar();
+
+updateCalendar(loggedin);
 
 // Change the month when the "next" button is pressed
 document.getElementById("next_month_btn").addEventListener("click", function(event){
-  currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
-  if (currentMonth.month == 0){
-    currentYear+=1;
-  }
-  updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-  //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+	currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+	if (currentMonth.month == 0){
+	 	currentYear+=1;
+	}
+	updateCalendar(loggedin); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+
 
 }, false);
 
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
-  currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
-  if (currentMonth.month == 11) {
-    currentYear-=1;
-  }
-  updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-  //alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+
+	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+	if (currentMonth.month == 11) {
+		currentYear-=1;
+	}
+	updateCalendar(loggedin); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+	//alert("The new month is "+currentMonth.month+" "+currentMonth.year);
+
 }, false);
 
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
-function updateCalendar(){
+function updateCalendar(logincheck){
 
-  clearCalendar()
-  var weeks = currentMonth.getWeeks();
-  document.getElementById('month_display').innerHTML = monthNames[currentMonth.month] + " " + currentYear;
-  for(var w in weeks){
-    var days = weeks[w].getDates();
-    var weekrow = document.createElement("tr");
 
-    //alert("Week starting on "+days[0]);
+	clearCalendar()
+	var weeks = currentMonth.getWeeks();
+	document.getElementById('month_display').innerHTML = monthNames[currentMonth.month] + " " + currentYear;
+	for(var w in weeks){
+		var days = weeks[w].getDates();
+		var weekrow = document.createElement("tr");
 
-    for(var d in days){
-      if (days[d].getMonth() != currentMonth.month) {
-        var tablecell = document.createElement("td");
-        tablecell.appendChild(document.createTextNode(""));
-        weekrow.appendChild(tablecell);
-        console.log("Not in current month");
-        console.log(days[d].getMonth());
+		//alert("Week starting on "+days[0]);
 
-      }
-      // You can see console.log() output in your JavaScript debugging tool, like Firebug,
-      // WebWit Inspector, or Dragonfly.
-      else {
-        console.log(days[d]);
+		for(var d in days){
+			if (days[d].getMonth() != currentMonth.month) {
+				var tablecell = document.createElement("td");
+				tablecell.appendChild(document.createTextNode(""));
+				weekrow.appendChild(tablecell);
+        //console.log(days[d]);
 
-        var tablecell = document.createElement("td");
-        tablecell.appendChild(document.createTextNode(days[d].getDate()));
-        tablecell.setAttribute("id", days[d]);
+
+			}
+			// You can see console.log() output in your JavaScript debugging tool, like Firebug,
+			// WebWit Inspector, or Dragonfly.
+			else {
+
+			//	console.log(days[d]);
+
+				var tablecell = document.createElement("td");
+				tablecell.appendChild(document.createTextNode(days[d].getDate()));
+				tablecell.setAttribute("id", days[d].toISOString().substring(0,10));
         tablecell.setAttribute("class", "editable");
-        weekrow.appendChild(tablecell);
+				weekrow.appendChild(tablecell);
+        var sqlday = days[d].toISOString().substring(0,10);
+        if (logincheck == true) {
+          //console.log(sqlday);
+          //getEvents(sqlday);
+        //  console.log(getEvents(sqlday));
+        getEvents(sqlday);
+
+        }
 
 
-      }
-      document.getElementById('calendarmain').appendChild(weekrow);
-    }
-  }
+		}
+		document.getElementById('calendarmain').appendChild(weekrow);
+		}
+	}
+
 }
 
 function clearCalendar() {
@@ -130,11 +145,29 @@ function clearCalendar() {
 
 
 }
-$('.editable').click(function() {     // function_td
-  console.log("row function");
-  // event.preventDefault();
-  // $(this).hide("slow");
-  $("#mydialog").dialog();
+
+$(document).on("click", ".editable", function() {
+  if (loggedin == true) {
+    $("#mydialog").dialog();
+    console.log('clicked');
+  }
+});
+$(document).on("click", "#save_btn", function() {
+    if (loggedin == true) {
+      console.log("Close box");
+      $("#mydialog").dialog('close');
+
+    }
+});
+//
+// $('.editable').click(function() {     // function_on
+//   console.log("row function");
+//   $("#mydialog").dialog();
+// });
+
+$('.events').hover(function() {
+  console.log("hover func");
+
 });
 // $("tr").click(function() {     // function_td
 //   console.log("tr function");

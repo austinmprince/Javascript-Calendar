@@ -18,20 +18,28 @@ table {
   font-family: 'PT Sans', sans-serif;
   font-size: 13px;
   width: 100%;
+  overflow: hidden;
+  table-layout: auto;
+
 }
 td {
   border: 1px solid #ccc;
   color: #444;
-  line-height: 60px;
-  text-align: left;
   vertical-align: top;
+  /*line-height: 80px;*/
+  /*text-align: center;
+  /*vertical-align: top;*/
+
 }
 tr:first-child td {
   color: #222;
+  text-align: center;
   font-weight: 700;
   line-height: 22px;
   text-align: center;
-  vertical-align: middle;
+
+  vertical-align: center;
+
 }
 .headercontent{
   width:100%;
@@ -41,13 +49,18 @@ tr:first-child td {
 
 }
 
+.editable {
+  height: 83px;
+  width: 89.9667px;
+  text-align: left;
+  position: relative;
+  /*vertical-align: top;
+  padding: 0;*/
+}
+.events{
+  margin: 0;
+  text-align: left;
+}
 #mydialog {
   display: none;
 }
-
-/*#prevmonthbutton {
-  float: left;
-}
-#nextmonthbutton {
-  float: right;
-}*/

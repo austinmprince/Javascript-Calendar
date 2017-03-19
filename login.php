@@ -25,7 +25,13 @@
       // Create token for CSRF
       $_SESSION['token'] = substr(md5(rand()), 0, 10);
       $_SESSION['user_id'] = $user_id;
-      echo json_encode(array("success" => true));
+
+      echo json_encode(array(
+        "success" => true,
+        "token" => $_SESSION['token'],
+        "id" => $user_id,
+
+      ));
       exit;
     }
     else{
@@ -36,4 +42,3 @@
       exit;
     }
 //}
-?>
