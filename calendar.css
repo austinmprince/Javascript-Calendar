@@ -81,3 +81,9 @@ tr:first-child td {
 .extraevents:hover{
     text-decoration: underline;
 }
+
+.singleevent {
+  padding: 0;
+  margin: 0;
+
+}

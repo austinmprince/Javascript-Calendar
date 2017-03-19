@@ -9,7 +9,7 @@ function getEvents(day) {
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
 
-    console.log(event.target.responseText);
+    // console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
 
     if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
@@ -19,46 +19,17 @@ function getEvents(day) {
 
   }
   if (jsonData.exists) {
-    var eventdiv = document.createElement("div");
-    var br = document.createElement("br");
 
-    var extraevents = document.createElement("p")
+    var br = document.createElement("br");
+    var singleevent = document.createElement("p")
+
+    var extraevents = document.createElement("p");
     extraevents.setAttribute("class", "extraevents");
 
 
-    // var numevents = jsonData.events.length;
-    // if (numevents < 2) {
-    //   for (var i=0; i < jsonData.events.length; i++){
-    //     eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-    //     eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-    //     eventdiv.appendChild(document.createElement("br"));
-    //   //  console.log(eventdiv);
-    //     eventdiv.setAttribute("class", "events");
-    //     eventdiv.setAttribute("id", jsonData.events[i].event_id);
-    //     document.getElementById(sqlday).appendChild(eventdiv);
-    //     }
-    // }
-    // else {
-    //   for (var i=0; i < jsonData.events.length; i++){
-    //     eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-    //     eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-    //     eventdiv.appendChild(document.createElement("br"));
-    //   //  console.log(eventdiv);
-    //     eventdiv.setAttribute("class", "events");
-    //     eventdiv.setAttribute("id", jsonData.events[i].event_id);
-    //     if (i < 2) {
-    //       document.getElementById(sqlday).appendChild(eventdiv);
-    //     }
-    //     else {
-    //       eventdiv.setAttribute("type", "hidden");
-    //     }
-    //   }
-    //   extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
-    //   extraevents.setAttribute("id", sqlday);
-    //   document.getElementById(sqlday).appendChild(extraevents);
-    // }
     for (var i=0; i < jsonData.events.length; i++){
       if (i < 2) {
+      var eventdiv = document.createElement("div");
       eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
       eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
       eventdiv.appendChild(document.createElement("br"));
@@ -66,6 +37,7 @@ function getEvents(day) {
       eventdiv.setAttribute("class", "events");
       eventdiv.setAttribute("id", jsonData.events[i].event_id);
       document.getElementById(sqlday).appendChild(eventdiv);
+
       }
 
       else {
@@ -268,46 +240,23 @@ function editEvent(event_id){
 document.getElementById("save_btn").addEventListener("click", createEvent, false);
 
 function deleteEvent(event_id){
-  var dataString = "event_id=" + encodeURIComponent(event_id);
+  var id = event.target.id;
+  console.log(id);
+  var dataString = "event_id=" + encodeURIComponent(id);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "deleteEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlHttp.addEventListener("load", function(event){
+    console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if(jsonData.success){
-      var title_elem = $('#title');
-      var description_elem = $('#description');
-      var date_elem = $('#date');
-      var time_elem = $('#time');
-      var save_btn = $('#save_btn');
-      var save_changes_btn = $('#save_changes_btn');
-      var dialog_box = $('#mydialog');
-
-      // var save_changes_btn = document.createElement("INPUT");
-      // save_changes_btn.setAttribute("type","submit");
-      // save_changes_btn.setAttribute("value","Save Changes");
-      // save_changes_btn.setAttribute("id","save_changes_btn");
-      // dialog_box.append(save_changes_btn);
-
-      var event_id_elem = document.createElement('INPUT');
-      event_id_elem.setAttribute("type", "hidden");
-      event_id_elem.setAttribute("name", "event_id");
-      event_id_elem.setAttribute("value", event_id);
-      event_id_elem.setAttribute("id", "e_id");
-      dialog_box.append(event_id_elem);
-
-      title_elem.val(jsonData.title);
-      description_elem.val(jsonData.description);
-      date_elem.val(jsonData.date);
-      time_elem.val(jsonData.time);
-      save_changes_btn.show();
-      // save_changes_btn.css("visibility","visible");
-      save_btn.hide();
+      alert("Event deleted succesfully")
+      updateCalendar(true);
     }else{
-      alert("Event not found");
+      alert("Event not deleted");
     }
   }, false);
   xmlHttp.send(dataString);
 }
 
-document.getElementById("save_btn").addEventListener("click", createEvent, false);
+document.getElementById("delete_event_btn").addEventListener("click", deleteEvent, false);
