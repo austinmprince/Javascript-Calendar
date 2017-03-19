@@ -59,7 +59,10 @@ tr:first-child td {
 }
 .events{
   margin: 0;
+  padding-top: 1;
+  padding-bottom: 1;
   text-align: left;
+  background-color: aquamarine;
 }
 #mydialog {
   display: none;
