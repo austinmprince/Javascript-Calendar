@@ -35,17 +35,18 @@
 	<br>
 	<div id="mydialog">
 			<h4>Add Event</h4>
-				Event:<input type="text" name="title" id="title">
-				Date:<input type="date" name="date" id="date">
-				<script>
-					document.getElementById('date').value = document.getElementById('sqlday').value
-					console.log(sqlday);
-					)
-				</script>
-				Time:<input type="time" name="time" id="time">
-				Notes:<textarea name="description" id="description"></textarea>
-				<input type="submit" name="Save" value="Add Event" id="save_btn">
-		</div>
+			Event:<input type="text" name="title" id="title">
+			Date:<input type="date" name="date" id="date">
+			<script>
+				document.getElementById('date').value = document.getElementById('sqlday').value
+				console.log(sqlday);
+				
+			</script>
+			Time:<input type="time" name="time" id="time">
+			Notes:<textarea name="description" id="description"></textarea>
+			<input type="submit" name="Save" value="Add Event" id="save_btn">
+			<input type="submit" value="Save Changes" id="save_changes_btn">
+	</div>
 
 
 
