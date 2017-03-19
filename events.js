@@ -121,7 +121,6 @@ function createEvent() {
     console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if (jsonData.success) {
-      alert("Event added succesfully");
       updateCalendar(loggedin);
     }
     else {
@@ -167,7 +166,9 @@ function saveChanges(){
     var date = document.getElementById("date").value;
     var time = document.getElementById("time").value;
     var notes = document.getElementById("description").value;
-    var event_id = document.getElementById("e_id").value;
+    var event_id = document.getElementById("single_event_id").value;
+
+    console.log("SAVE " + event_id);
 
     var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&event_id=" + encodeURIComponent(event_id);
     var xmlHttp = new XMLHttpRequest();
@@ -216,12 +217,7 @@ function editEvent(event_id){
       // save_changes_btn.setAttribute("id","save_changes_btn");
       // dialog_box.append(save_changes_btn);
 
-      var event_id_elem = document.createElement('INPUT');
-      event_id_elem.setAttribute("type", "hidden");
-      event_id_elem.setAttribute("name", "event_id");
-      event_id_elem.setAttribute("value", event_id);
-      event_id_elem.setAttribute("id", "e_id");
-      dialog_box.append(event_id_elem);
+      console.log("EDIT EVENT " + event_id);
 
       title_elem.val(jsonData.title);
       description_elem.val(jsonData.description);
@@ -252,7 +248,6 @@ function deleteEvent(){
     console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if(jsonData.success){
-      alert("Event deleted succesfully")
       updateCalendar(true);
     }else{
       alert("Event not deleted");
@@ -262,3 +257,4 @@ function deleteEvent(){
 }
 
 document.getElementById("delete_event_btn").addEventListener("click", deleteEvent, false);
+
