@@ -199,12 +199,38 @@ $('.events').hover(function() {
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
     console.log("Extra events");
-    console.log(event.target.id);
+    //console.log(event.target.id);
     //console.log(getEvents(event.target.id));
     $("#showmore").dialog();
-    $("#showmore").text(getEvents(event.target.id));
+    $("#showmore").text(createBox(event.target.id));
+    return false;
   }
 });
+
+$(document).on("click", "#close_events", function(){
+    if (loggedin == true) {
+      console.log("Close box");
+      $("#showmore").dialog('close');
+      var main = document.getElementById('showmore');
+      while (main.childNodes.length > 2) {
+          main.removeChild(main.lastChild);
+      }
+
+    }
+});
+// $( "#showmore" ).dialog({
+//
+//   close: function() {
+//     if (loggedin) {
+//     console.log("close me");
+//     var main = document.getElementById('showmore');
+//     while (main.childNodes.length > 1) {
+//       main.removeChild(main.lastChild);
+//     }
+//
+//   }
+// }
+// });
 
 $(document).ready(function () {
     $(".extraevents").hover(function () {

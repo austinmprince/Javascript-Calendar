@@ -21,70 +21,62 @@ function getEvents(day) {
   if (jsonData.exists) {
     var eventdiv = document.createElement("div");
     var br = document.createElement("br");
-// <<<<<<< HEAD
+
     var extraevents = document.createElement("p")
     extraevents.setAttribute("class", "extraevents");
-// =======
-//     for (var i=0; i < jsonData.events.length; i++){
-//       eventdiv.appendChild(document.createTextNode(jsonData.events[i].title));
-//       eventdiv.appendChild(br);
-//       document.getElementById(sqlday).appendChild(br);
-//       eventdiv.setAttribute("class", "events");
-//       eventdiv.setAttribute("id", jsonData.events[i].event_id);
-//       document.getElementById(sqlday).appendChild(eventdiv);
-// >>>>>>> e648ae8079bb69318ca9c93a71912b404d4ce3dd
 
-    var numevents = jsonData.events.length;
-    if (numevents < 2) {
-      for (var i=0; i < jsonData.events.length; i++){
-        eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-        eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-        eventdiv.appendChild(document.createElement("br"));
-      //  console.log(eventdiv);
-        eventdiv.setAttribute("class", "events");
-        eventdiv.setAttribute("id", jsonData.events[i].event_id);
-        document.getElementById(sqlday).appendChild(eventdiv);
-        }
-    }
-    else {
-      for (var i=0; i < jsonData.events.length; i++){
-        eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-        eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-        eventdiv.appendChild(document.createElement("br"));
-      //  console.log(eventdiv);
-        eventdiv.setAttribute("class", "events");
-        eventdiv.setAttribute("id", jsonData.events[i].event_id);
-        if (i < 2) {
-          document.getElementById(sqlday).appendChild(eventdiv);
-        }
-        else {
-          eventdiv.setAttribute("type", "hidden");
-        }
-      }
-      extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
-      extraevents.setAttribute("id", sqlday);
-      document.getElementById(sqlday).appendChild(extraevents);
-    }
-    // for (var i=0; i < jsonData.events.length; i++){
-    //   if (i < 2) {
-    //   eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
-    //   eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
-    //   eventdiv.appendChild(document.createElement("br"));
-    // //  console.log(eventdiv);
-    //   eventdiv.setAttribute("class", "events");
-    //   eventdiv.setAttribute("id", jsonData.events[i].event_id);
-    //   document.getElementById(sqlday).appendChild(eventdiv);
-    //   }
-    //
-    //   else {
-    //     console.log("in extra");
-    //     extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
-    //     extraevents.setAttribute("id", sqlday);
-    //     document.getElementById(sqlday).appendChild(extraevents);
-    //     break;
-    //   }
-    //
+
+    // var numevents = jsonData.events.length;
+    // if (numevents < 2) {
+    //   for (var i=0; i < jsonData.events.length; i++){
+    //     eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+    //     eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+    //     eventdiv.appendChild(document.createElement("br"));
+    //   //  console.log(eventdiv);
+    //     eventdiv.setAttribute("class", "events");
+    //     eventdiv.setAttribute("id", jsonData.events[i].event_id);
+    //     document.getElementById(sqlday).appendChild(eventdiv);
+    //     }
     // }
+    // else {
+    //   for (var i=0; i < jsonData.events.length; i++){
+    //     eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+    //     eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+    //     eventdiv.appendChild(document.createElement("br"));
+    //   //  console.log(eventdiv);
+    //     eventdiv.setAttribute("class", "events");
+    //     eventdiv.setAttribute("id", jsonData.events[i].event_id);
+    //     if (i < 2) {
+    //       document.getElementById(sqlday).appendChild(eventdiv);
+    //     }
+    //     else {
+    //       eventdiv.setAttribute("type", "hidden");
+    //     }
+    //   }
+    //   extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
+    //   extraevents.setAttribute("id", sqlday);
+    //   document.getElementById(sqlday).appendChild(extraevents);
+    // }
+    for (var i=0; i < jsonData.events.length; i++){
+      if (i < 2) {
+      eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+      eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+      eventdiv.appendChild(document.createElement("br"));
+    //  console.log(eventdiv);
+      eventdiv.setAttribute("class", "events");
+      eventdiv.setAttribute("id", jsonData.events[i].event_id);
+      document.getElementById(sqlday).appendChild(eventdiv);
+      }
+
+      else {
+        console.log("in extra");
+        extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
+        extraevents.setAttribute("id", sqlday);
+        document.getElementById(sqlday).appendChild(extraevents);
+        break;
+      }
+
+    }
 
 
     }
@@ -96,6 +88,48 @@ function getEvents(day) {
 xmlHttp.send(dataString); // Send the data
 
 }
+
+function createBox(day) {
+
+    var date = new Date(day);
+    var sqlday = date.toISOString().substring(0,10);
+    //console.log(sqlday);
+    var dataString = "date=" + encodeURIComponent(sqlday);
+
+    var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+    xmlHttp.open("POST", "getevents.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
+    xmlHttp.addEventListener("load", function(event){
+      console.log("Creating box");
+      console.log(event.target.responseText);
+      var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+
+      if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+
+      alert("Events fetched failed");
+
+
+    }
+    if (jsonData.exists) {
+      var eventdiv = document.createElement("div");
+      var br = document.createElement("br");
+      for (var i=0; i < jsonData.events.length; i++){
+
+        eventdiv.appendChild(document.createTextNode(convert(jsonData.events[i].time)));
+        eventdiv.appendChild(document.createTextNode(" " + jsonData.events[i].title));
+        eventdiv.appendChild(document.createElement("br"));
+        eventdiv.setAttribute("class", "events");
+        eventdiv.setAttribute("id", jsonData.events[i].event_id);
+        document.getElementById("showmore").appendChild(eventdiv);
+        }
+      }
+  }, false); // Bind the callback to the load event
+  xmlHttp.send(dataString); // Send the data
+
+  }
+
+
+
 function createEvent() {
   var title = document.getElementById("title").value;
   var date = document.getElementById("date").value;
