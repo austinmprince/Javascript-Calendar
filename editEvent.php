@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require 'database.php';
 	if(!isset($_SESSION)){
 		session_start();
@@ -11,6 +11,10 @@
 
 	// get event id
 	$event_id = (int) $_POST['event_id'];
+	$token = (int)$_POST['token'];
+  if(!hash_equals($_SESSION['token'], $_POST['token'])){
+	   die("Request forgery detected");
+   }
 
 	//get specified info from event
 	$stmt=$mysqli->prepare('select title, description, date, time from events where event_id=?');

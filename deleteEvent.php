@@ -6,6 +6,11 @@
   // }
   // Get the name of the file
   $id_num = (int)$_POST['event_id'];
+  $token = (int)$_POST['token'];
+  if(!hash_equals($_SESSION['token'], $_POST['token'])){
+	   die("Request forgery detected");
+   }
+
   // First we delete all the comments that are associated with our given story
   $stmt = $mysqli->prepare("delete from events where event_id=?");
   if(!$stmt){

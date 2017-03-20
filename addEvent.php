@@ -9,6 +9,11 @@ date_default_timezone_set('America/Chicago');
 //   if(!hash_equals($_SESSION['token'], $_POST['token'])){
 //    die("Request forgery detected");
 // }
+$token = (int)$_POST['token'];
+if(!hash_equals($_SESSION['token'], $_POST['token'])){
+	 die("Request forgery detected");
+ }
+
 $title = (String)$_POST['title'];
 $undate = $_POST['date'];
 $untime = $_POST['time'];

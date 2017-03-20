@@ -20,6 +20,8 @@ function loginAjax(event){
     document.getElementById("adduser").style.visibility="hidden";
     document.getElementById("logout_btn").style.visibility="visible";
     document.getElementById("loginuser").style.visibility="hidden";
+    document.getElementById("csrf_token").value=jsonData.token;
+    console.log(jsonData.token);
 
     alert("You've been logged in!");
     //console.log(jsonData.token);

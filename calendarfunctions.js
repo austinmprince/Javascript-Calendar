@@ -149,9 +149,7 @@ function clearCalendar() {
 $(document).on("click", ".editable", function() {
   if (loggedin == true) {
     $("#mydialog").dialog();
-    // console.log("clicked edit " + event.target.id);
     document.getElementById('date').value = event.target.id;
-
     $('#title').val("");
     $('#description').val("");
     //$('#date').val("");

@@ -107,10 +107,11 @@ function createEvent() {
   var date = document.getElementById("date").value;
   var time = document.getElementById("time").value;
   var notes = document.getElementById("description").value;
+  var token = document.getElementById("csrf_token").value;
   console.log(title);
   console.log(date);
   console.log(time);
-  var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes);
+  var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&token=" + encodeURIComponent(token);
   // var dataString = "title=" + encodeURIComponent(title) + "&date=" + date + "&time=" + time + "&description=" + notes;
   // document.write(dataString);
   var xmlHttp = new XMLHttpRequest();
@@ -167,9 +168,7 @@ function saveChanges(){
     var time = document.getElementById("time").value;
     var notes = document.getElementById("description").value;
     var event_id = document.getElementById("single_event_id").value;
-
-    console.log("SAVE " + event_id);
-
+//    console.log("SAVE " + event_id);
     var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&event_id=" + encodeURIComponent(event_id);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "saveChanges.php", true);
@@ -195,12 +194,14 @@ function saveChanges(){
 document.getElementById("save_changes_btn").addEventListener("click", saveChanges, false);
 
 function editEvent(event_id){
-
-  var dataString = "event_id=" + encodeURIComponent(event_id);
+  var token = document.getElementById("csrf_token").value;
+  console.log(token);
+  var dataString = "event_id=" + encodeURIComponent(event_id) + "&token=" + encodeURIComponent(token);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "editEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlHttp.addEventListener("load", function(event){
+    console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if(jsonData.success){
       var title_elem = $('#title');
@@ -211,11 +212,6 @@ function editEvent(event_id){
       var save_changes_btn = $('#save_changes_btn');
       var dialog_box = $('#mydialog');
 
-      // var save_changes_btn = document.createElement("INPUT");
-      // save_changes_btn.setAttribute("type","submit");
-      // save_changes_btn.setAttribute("value","Save Changes");
-      // save_changes_btn.setAttribute("id","save_changes_btn");
-      // dialog_box.append(save_changes_btn);
 
       console.log("EDIT EVENT " + event_id);
 
@@ -239,8 +235,9 @@ function deleteEvent(){
   // console.log(document.getElementById("single_event_id"));
   // console.log("single_event_id");
   // console.log(id);
+  var token = document.getElementById("csrf_token").value;
   var id = document.getElementById("single_event_id").value;
-  var dataString = "event_id=" + encodeURIComponent(id);
+  var dataString = "event_id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(token);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "deleteEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -257,4 +254,3 @@ function deleteEvent(){
 }
 
 document.getElementById("delete_event_btn").addEventListener("click", deleteEvent, false);
-
