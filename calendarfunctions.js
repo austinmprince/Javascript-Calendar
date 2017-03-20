@@ -237,7 +237,8 @@ $("#show_shared").change(function(){
     updateCalendar(loggedin);
   }
 });
-
+// Creates a box showing extra events in day if too large
+// to fit in table cell
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
     console.log("Extra events");
@@ -246,7 +247,7 @@ $(document).on("click", ".extraevents", function() {
     return false;
   }
 });
-
+// Close function for showmore dialog box allows the box to be reloaded
 $( "#showmore" ).dialog({
   close: function() {
     if (loggedin == true) {
@@ -260,7 +261,7 @@ $( "#showmore" ).dialog({
   return false;
 }
 });
-
+// On show more underlines when hover on extra events 
 $(document).ready(function () {
     $(".extraevents").hover(function () {
       //console.log("hovering");
