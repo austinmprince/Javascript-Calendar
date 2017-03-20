@@ -1,15 +1,14 @@
 function getEvents(day) {
+  // Get the value of the category selector allows us to only show events
+  // associated with a given category
   var category = document.getElementById("categories").value;
-  //console.log(category);
   if (category == "Show All") {
     category = "*"
   }
-  //console.log(category);
   var date = new Date(day);
   var sqlday = date.toISOString().substring(0,10);
-  //console.log(sqlday);
   var dataString = "date=" + encodeURIComponent(sqlday) + "&category=" + encodeURIComponent(category);
-
+  // Passing events asynchronously
   var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
   xmlHttp.open("POST", "getevents.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
@@ -23,7 +22,8 @@ function getEvents(day) {
   }
 
   if (jsonData.exists) {
-
+    // Creating event divs and appending them the the corresponding day element
+    // only show two elements otherwise wouldnt fit in div
     var br = document.createElement("br");
     var singleevent = document.createElement("p")
 
@@ -53,6 +53,7 @@ function getEvents(day) {
 
 
     }
+    // Fills category selector with categories from events in given month
     var categories = [];
     for (var i = 0; i < jsonData.events.length; i++) {
       if (jsonData.events[i].category != "" && !categories.includes(jsonData.events[i].category)) {
@@ -61,8 +62,6 @@ function getEvents(day) {
 
 
     }
-
-    console.log(categories);
     for (var i = 0; i < categories.length; i++) {
       var item = document.createElement("option");
       item.appendChild(document.createTextNode(categories[i]));
@@ -77,7 +76,7 @@ function getEvents(day) {
 xmlHttp.send(dataString); // Send the data
 
 }
-
+// Creates the show more dialog box
 function createBox(day) {
     var category = "*"
     var date = new Date(day);
@@ -148,7 +147,8 @@ function createEvent() {
 
 document.getElementById("save_btn").addEventListener("click", createEvent, false);
 
-
+// Converts time to string so it can be displayed
+// code source http://stackoverflow.com/questions/29206453/best-way-to-convert-military-time-to-standard-time-in-javascript
 function convert(timeinput) {
   time = timeinput.split(':'); // convert to array
 
@@ -175,14 +175,15 @@ function convert(timeinput) {
   }
   return timeValue;
 }
-
+// Saves the changes made to an event when it is edited fires on save changes button click
 function saveChanges(){
+    // Reget the values of the events
     var title = document.getElementById("title").value;
     var date = document.getElementById("date").value;
     var time = document.getElementById("time").value;
     var notes = document.getElementById("description").value;
     var event_id = document.getElementById("single_event_id").value;
-//    console.log("SAVE " + event_id);
+    // asynchronously run php script and update event then re update calendar
     var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&event_id=" + encodeURIComponent(event_id);
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("POST", "saveChanges.php", true);
@@ -206,6 +207,7 @@ function saveChanges(){
 }
 
 document.getElementById("save_changes_btn").addEventListener("click", saveChanges, false);
+
 
 function editEvent(event_id){
   var token = document.getElementById("csrf_token").value;
@@ -240,10 +242,8 @@ function editEvent(event_id){
 
 document.getElementById("save_btn").addEventListener("click", createEvent, false);
 
+// Gets an event id and calls php script that deletes the event
 function deleteEvent(){
-  // console.log(document.getElementById("single_event_id"));
-  // console.log("single_event_id");
-  // console.log(id);
   var token = document.getElementById("csrf_token").value;
   var id = document.getElementById("single_event_id").value;
   var dataString = "event_id=" + encodeURIComponent(id) + "&token=" + encodeURIComponent(token);

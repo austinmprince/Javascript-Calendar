@@ -1,5 +1,8 @@
+// Array of month names so we can convert from int to string value of month name
 var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// Global variable to tell if user is logged in
 var loggedin = false;
+// Supplied calendar functions
 (function() {
   Date.prototype.deltaDays = function(c) {
     return new Date(this.getFullYear(), this.getMonth(), this.getDate() + c)
@@ -47,7 +50,8 @@ function Month(c, b) {
     return c
   }
 };
-
+// This code gets the current date and also sets up the calendar
+// some code was taken from https://code.tutsplus.com/tutorials/how-to-build-a-beautiful-calendar-widget--net-12538 (temp month)
 var currentDate = new Date();
 var month = currentDate.getMonth();
 var currentYear = currentDate.getFullYear();
@@ -73,7 +77,7 @@ document.getElementById("next_month_btn").addEventListener("click", function(eve
 
 
 }, false);
-
+// Change motn when the prev button is pressed
 document.getElementById("prev_month_btn").addEventListener("click", function(event){
 
 	currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
@@ -142,14 +146,14 @@ function updateCalendar(logincheck){
   }
 
 }
-
+// Clears calendar nodes except for top row of table which is the day label
 function clearCalendar() {
   var main = document.getElementById('calendarmain');
   while (main.childNodes.length > 2) {
     main.removeChild(main.lastChild);
   }
 }
-
+// If item is of class editable and user is logged in fire a create event box
 $(document).on("click", ".editable", function() {
   if (loggedin == true) {
     $("#mydialog").dialog();
@@ -162,7 +166,7 @@ $(document).on("click", ".editable", function() {
 
   }
 });
-
+// Close add event dialog box on click of save button
 $(document).on("click", "#save_btn", function() {
     if (loggedin == true) {
 
@@ -170,7 +174,11 @@ $(document).on("click", "#save_btn", function() {
 
     }
 });
-
+// Makes sure show more dialog box is closed on page load
+$(document).ready(function () {
+  $("#showmore").dialog('close');
+});
+// On change of category selector updates calendar accordingly
 $(document).on("change", "#categories", function() {
   var cat = document.getElementById("categories").value;
   if (cat == "Show All") {
@@ -184,7 +192,6 @@ $(document).on("change", "#categories", function() {
   }
 
 });
-
 $(document).on("click", "#save_changes_btn", function(){
     if (loggedin == true) {
       $("#mydialog").dialog('close');
@@ -202,11 +209,10 @@ $(document).on("click", "#share_btn", function(){
       $("#shareDialog").dialog();
     }
 })
-
+// On click of an event this pops up a box that allows you to editEvent
 $(document).on("click", ".events", function(){
   editEvent(this.id);
   $("#mydialog").dialog();
-  //console.log('clicked');
   document.getElementById("single_event_id").value = event.target.id;
 });
 

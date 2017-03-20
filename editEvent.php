@@ -5,11 +5,6 @@
 		session_start();
 	}
 
-	// makes sure right user
-	// if(!hash_equals($_SESSION['token'], $_POST['token'])){
- //   		die("Request forgery detected");
-	// }
-
 	// get event id
 	$event_id = (int) $_POST['event_id'];
 	$token = (int)$_POST['token'];

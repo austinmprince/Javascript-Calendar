@@ -1,17 +1,15 @@
 <?php
+
   require 'database.php';
+  ini_set("session.cookie_httponly", 1);
   session_start();
-  // if(!hash_equals($_SESSION['token'], $_POST['token'])){
-	//    die("Request forgery detected");
-  // }
-  // Get the name of the file
   $id_num = (int)$_POST['event_id'];
   $token = (int)$_POST['token'];
   if(!hash_equals($_SESSION['token'], $_POST['token'])){
 	   die("Request forgery detected");
    }
 
-  // First we delete all the comments that are associated with our given story
+  // Delete event where event_id matches that passed to it by JavaScript function call
   $stmt = $mysqli->prepare("delete from events where event_id=?");
   if(!$stmt){
     echo json_encode(array(

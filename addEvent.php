@@ -1,14 +1,13 @@
 <?php
+// Adds events into sql database
 require 'database.php';
 header("Content-Type: application/json");
+// Session cookie http only
 ini_set("session.cookie_httponly", 1);
 session_start();
+// Set timezone so we can convert JavaScript time into sql time
 date_default_timezone_set('America/Chicago');
 
-// makes sure right user
-//   if(!hash_equals($_SESSION['token'], $_POST['token'])){
-//    die("Request forgery detected");
-// }
 $token = (int)$_POST['token'];
 if(!hash_equals($_SESSION['token'], $_POST['token'])){
 	 die("Request forgery detected");
@@ -32,6 +31,7 @@ if(isset($title) && isset($undate) && isset($untime) && !empty($title) && !empty
 		printf("Query Prep Failed: %s\n", $mysqli->error);
 		exit;
 	}
+	// Protect against sql injection
 	$stmt->bind_param('sssss', $user_id, $title, $description, $date, $time);
 	$stmt->execute();
 	$stmt->close();
