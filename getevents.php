@@ -18,6 +18,7 @@ if ($category == "*"){
     exit;
   }
   $stmt->bind_param('is', $user_id, $date);
+}
 // If category was selected then only get results of certain category
 else {
   $stmt = $mysqli->prepare("select title, description, date, time, event_id, category from events where events.user_id=? and date=? and category=?");
