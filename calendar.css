@@ -3,8 +3,8 @@ body{
   background-color: teal; /* what color to make the background */
   margin: 0 auto;
   padding: 0;
-  margin-top: 10
-  font:12px/16px Verdana, sans-serif; /* default font */
+  margin-top: 10;
+  font:12pt/15pt "Avenir", sans-serif; /* default font */
 }
 div#main{
   background-color: #FFF;
@@ -41,6 +41,11 @@ tr:first-child td {
   vertical-align: center;
 
 }
+
+h4{
+  margin: 3px;
+}
+
 .headercontent{
   width:100%;
   margin:0 auto;
@@ -68,6 +73,11 @@ tr:first-child td {
 #mydialog {
   display: none;
 }
+
+#shareDialog{
+  display: none;
+}
+
 #showmore {
   display: none;
 }
@@ -86,4 +96,8 @@ tr:first-child td {
   padding: 0;
   margin: 0;
 
+}
+
+.sharedEvents{
+  background-color: lightsalmon;
 }

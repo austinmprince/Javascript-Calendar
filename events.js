@@ -9,15 +9,13 @@ function getEvents(day) {
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
 
-    // console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
 
     if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
 
     alert("Events fetched failed");
-
-
   }
+
   if (jsonData.exists) {
 
     var br = document.createElement("br");
@@ -41,7 +39,6 @@ function getEvents(day) {
       }
 
       else {
-        console.log("in extra");
         extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
         extraevents.setAttribute("id", sqlday);
         document.getElementById(sqlday).appendChild(extraevents);

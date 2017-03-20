@@ -1,5 +1,6 @@
 <?php 
 	require 'database.php';
+	ini_set("session.cookie_httponly", 1);
 	if(!isset($_SESSION)){
 		session_start();
 	}
