@@ -122,9 +122,7 @@ function updateCalendar(logincheck){
 				weekrow.appendChild(tablecell);
         var sqlday = days[d].toISOString().substring(0,10);
         if (logincheck == true) {
-          //console.log(sqlday);
-          //getEvents(sqlday);
-        //  console.log(getEvents(sqlday));
+
         getEvents(sqlday);
 
         }
@@ -170,10 +168,13 @@ $(document).on("click", "#save_btn", function() {
 $(document).on("change", "#categories", function() {
   var cat = document.getElementById("categories").value;
   if (cat == "Show All") {
+
     updateCalendar(loggedin);
   }
   else {
+
     updateCalendar(loggedin);
+
   }
 
 });
@@ -209,7 +210,7 @@ $('.events').hover(function() {
 });
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
-    //console.log("Extra events");
+    console.log("Extra events");
     //console.log(event.target.id);
     //console.log(getEvents(event.target.id));
     $("#showmore").dialog();

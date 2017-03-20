@@ -58,18 +58,18 @@ function getEvents(day) {
     }
     var categories = [];
     for (var i = 0; i < jsonData.events.length; i++) {
-      if (jsonData.events[i].category != "") {
+      if (jsonData.events[i].category != "" && !categories.includes(jsonData.events[i].category)) {
         categories.push(jsonData.events[i].category);
       }
 
 
     }
-    var ucategories = categories.filter(onlyUnique);
-    console.log(ucategories);
-    for (var i = 0; i < ucategories.length; i++) {
+
+    console.log(categories);
+    for (var i = 0; i < categories.length; i++) {
       var item = document.createElement("option");
-      item.appendChild(document.createTextNode(ucategories[i]));
-      item.setAttribute("id", ucategories[i]);
+      item.appendChild(document.createTextNode(categories[i]));
+      item.setAttribute("id", categories[i]);
       document.getElementById("categories").appendChild(item);
     }
 
@@ -82,11 +82,11 @@ xmlHttp.send(dataString); // Send the data
 }
 
 function createBox(day) {
-
+    var category = "*"
     var date = new Date(day);
     var sqlday = date.toISOString().substring(0,10);
     //console.log(sqlday);
-    var dataString = "date=" + encodeURIComponent(sqlday);
+    var dataString = "date=" + encodeURIComponent(sqlday) + "&category=" + encodeURIComponent(category);
 
     var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
     xmlHttp.open("POST", "getevents.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
