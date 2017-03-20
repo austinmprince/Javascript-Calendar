@@ -86,11 +86,12 @@ document.getElementById("prev_month_btn").addEventListener("click", function(eve
 }, false);
 
 
+
+
+
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar(logincheck){
-
-
 	clearCalendar()
 	var weeks = currentMonth.getWeeks();
 	document.getElementById('month_display').innerHTML = monthNames[currentMonth.month] + " " + currentYear;
@@ -124,7 +125,6 @@ function updateCalendar(logincheck){
         if (logincheck == true) {
 
         getEvents(sqlday);
-
         }
 
 
@@ -132,6 +132,14 @@ function updateCalendar(logincheck){
 		document.getElementById('calendarmain').appendChild(weekrow);
 		}
 	}
+  if(document.getElementById('show_shared').checked){
+    loadSharedCalendars(sqlday);
+  }else{
+    var events = document.getElementsByClassName("sharedEvents");
+    for(var i=0; i<events.length; i++){
+      events[i].style.visibility = hidden;
+    }
+  }
 
 }
 
@@ -140,7 +148,6 @@ function clearCalendar() {
   while (main.childNodes.length > 2) {
     main.removeChild(main.lastChild);
   }
-
 }
 
 $(document).on("click", ".editable", function() {
@@ -149,7 +156,6 @@ $(document).on("click", ".editable", function() {
     document.getElementById('date').value = event.target.id;
     $('#title').val("");
     $('#description').val("");
-    //$('#date').val("");
     $('#time').val("");
     $('#save_btn').show();
     $('#save_changes_btn').hide();
@@ -191,11 +197,11 @@ $(document).on("click", "#delete_event_btn", function(){
     }
 });
 
-//
-// $('.editable').click(function() {     // function_on
-//   console.log("row function");
-//   $("#mydialog").dialog();
-// });
+$(document).on("click", "#share_btn", function(){
+    if (loggedin == true) {
+      $("#shareDialog").dialog();
+    }
+})
 
 $(document).on("click", ".events", function(){
   editEvent(this.id);
@@ -204,15 +210,31 @@ $(document).on("click", ".events", function(){
   document.getElementById("single_event_id").value = event.target.id;
 });
 
+$(document).on("click", "#share", function(){
+    if (loggedin == true) {
+      shareCalendar(document.getElementById('share_to_user').value);
+      $("#shareDialog").dialog('close');
+    }
+
+});
 
 $('.events').hover(function() {
 
 });
+
+$("#show_shared").change(function(){
+  if(this.checked){
+    console.log('checked');
+    updateCalendar(loggedin);
+  }else{
+    console.log('unchecked');
+    updateCalendar(loggedin);
+  }
+});
+
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
     console.log("Extra events");
-    //console.log(event.target.id);
-    //console.log(getEvents(event.target.id));
     $("#showmore").dialog();
     $("#showmore").text(createBox(event.target.id));
     return false;

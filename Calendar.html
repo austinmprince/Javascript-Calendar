@@ -48,6 +48,12 @@
 			<input type="hidden" id="csrf_token">
 	</div>
 
+	<div id="shareDialog">
+		<h4>Share Calendar</h4>
+		User:<input type="text" name="share_to_user" id="share_to_user">
+		<input type="submit" name="share" id="share">
+	</div>
+
 	<div id="showmore">
 		<!-- <button id="close_events">Close box</button> -->
 	</div>
@@ -71,17 +77,17 @@
 		</div>
 		<select id="categories" style="visibility:hidden">
 			<option id="all">Show All</option>
-
 		</select>
 		<br>
 		<button id="logout_btn" style="visibility:hidden">Logout</button>
+		<button id="share_btn">Share Calendar</button>
+		<input type="checkbox" name="show_shared" value="show_shared" id="show_shared">Show Shared Calendars
 
 
 
 		<script type="text/javascript" src="events.js"></script>
 		<script type="text/javascript" src="loginAjax.js"></script>
-
-
+		<script type="text/javascript" src="shares.js"></script>
 		<script type="text/javascript" src="calendarfunctions.js"></script>
 
 
