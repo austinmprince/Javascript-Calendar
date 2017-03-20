@@ -20,8 +20,8 @@ function loginAjax(event){
     document.getElementById("adduser").style.visibility="hidden";
     document.getElementById("logout_btn").style.visibility="visible";
     document.getElementById("loginuser").style.visibility="hidden";
+    document.getElementById('categories').style.visibility="visible";
     document.getElementById("csrf_token").value=jsonData.token;
-    //console.log(jsonData.token);
     document.getElementById("categories").style.visibility="visible";
 
     alert("You've been logged in!");
@@ -83,6 +83,7 @@ function logoutAjax(event) {
       document.getElementById("loginuser").style.visibility="visible";
       document.getElementById('adduser').style.visibility="visible";
       document.getElementById('logout_btn').style.visibility="hidden";
+      document.getElementById('categories').style.visibility="hidden";
       document.getElementById("username").value="";
       document.getElementById("password").value="";
       loggedin = false;
