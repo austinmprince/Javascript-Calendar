@@ -1,3 +1,4 @@
+// Much of the  following code is taken from the wiki and modified slightly
 function loginAjax(event){
 
   var username = document.getElementById("username").value; // Get the username from the form
@@ -17,6 +18,7 @@ function loginAjax(event){
 
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
     if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+    // Hide and or show events on successful login
     document.getElementById("adduser").style.visibility="hidden";
     document.getElementById("logout_btn").style.visibility="visible";
     document.getElementById("loginuser").style.visibility="hidden";
@@ -25,7 +27,7 @@ function loginAjax(event){
     document.getElementById("categories").style.visibility="visible";
 
     alert("You've been logged in!");
-    //console.log(jsonData.token);
+    // Set the global variable to show that the user has been logged in
     loggedin = true;
     updateCalendar(true);
 
@@ -53,8 +55,6 @@ function registerAjax(event) {
   xmlHttp.open("POST", "register.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
-    //console.log("responseText");
-    //console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if (jsonData.success) {
       console.log("trying to hide register");

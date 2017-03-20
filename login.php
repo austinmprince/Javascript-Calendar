@@ -1,8 +1,7 @@
 <?php
   require 'database.php';
   header("Content-Type: application/json");
-  //if (isset($_POST['userName']) && isset($_POST['password'])) {
-    //console.log()
+  
     // Much of the following code is taken from the course wiki and modified slightly
     $stmt = $mysqli->prepare("SELECT COUNT(*), username, password, user_id FROM users WHERE username=?");
     if(!$stmt){

@@ -8,3 +8,4 @@ This is our Module 5 project for CSE 330. We created a calendar site that has so
 
 For our creative portion we added the following functionalities
 *  Users can share their calendar with other registered users by name
+*  Users can filter their events by category

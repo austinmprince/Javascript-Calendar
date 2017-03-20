@@ -1,6 +1,7 @@
 <?php
 	require 'database.php';
 	header("Content-Type: application/json");
+	ini_set("session.cookie_httponly", 1);
 	session_start();
 	date_default_timezone_set('America/Chicago');
 
