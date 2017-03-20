@@ -5,7 +5,7 @@ ini_set("session.cookie_httponly", 1);
 session_start();
 $user_id = $_SESSION['user_id'];
 $date = $_POST['date'];
-$stmt = $mysqli->prepare("select title, description, date, time, event_id from events where events.user_id=? and date=?");
+$stmt = $mysqli->prepare("select title, description, date, time, event_id, category from events where events.user_id=? and date=?");
 if(!$stmt){
   echo json_encode(array(
     "success" => false,
@@ -25,7 +25,8 @@ while($row = $result->fetch_assoc()){
      "description" => $row['description'],
      "date" => $row['date'],
      "time" => $row['time'],
-     "event_id" => $row['event_id']
+     "event_id" => $row['event_id'],
+     "category" => $row['category']
    ));
 }
 echo json_encode(array(

@@ -9,7 +9,7 @@ function getEvents(day) {
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
 
-    // console.log(event.target.responseText);
+    console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
 
     if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
@@ -48,19 +48,43 @@ function getEvents(day) {
         break;
       }
 
-    }
-
 
     }
+    var categories = [];
+    for (var i = 0; i < jsonData.events.length; i++) {
+      if (jsonData.events[i].category != "") {
+        categories.push(jsonData.events[i].category);
+      }
 
 
+    }
+    var ucategories = categories.filter(onlyUnique);
+    console.log(categories);
+    for (var i = 0; i < ucategories.length; i++) {
+      var item = document.createElement("option");
+      item.appendChild(document.createTextNode(ucategories[i]));
+      item.setAttribute("id", ucategories[i]);
+      document.getElementById("categories").appendChild(item);
+
+
+
+
+    }
+
+}
 
 
 }, false); // Bind the callback to the load event
 xmlHttp.send(dataString); // Send the data
 
 }
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
 
+// // usage example:
+// var a = ['a', 1, 'a', 2, '1'];
+// var unique = a.filter( onlyUnique );
 function createBox(day) {
 
     var date = new Date(day);
