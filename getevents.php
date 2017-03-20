@@ -5,17 +5,32 @@ ini_set("session.cookie_httponly", 1);
 session_start();
 $user_id = $_SESSION['user_id'];
 $date = $_POST['date'];
-$stmt = $mysqli->prepare("select title, description, date, time, event_id, category from events where events.user_id=? and date=?");
-if(!$stmt){
-  echo json_encode(array(
-    "success" => false,
-    "message" => $mysqli->error,
-  ));
-  exit;
+$category = $_POST['category'];
+if ($category == "*"){
+  $stmt = $mysqli->prepare("select title, description, date, time, event_id, category from events where events.user_id=? and date=?");
+  if(!$stmt){
+    echo json_encode(array(
+      "success" => false,
+      "message" => $mysqli->error,
+    ));
+    exit;
+  }
+  $stmt->bind_param('is', $user_id, $date);
 }
-$stmt->bind_param('is', $user_id, $date);
-$stmt->execute();
+else {
+  $stmt = $mysqli->prepare("select title, description, date, time, event_id, category from events where events.user_id=? and date=? and category=?");
+  if(!$stmt){
+    echo json_encode(array(
+      "success" => false,
+      "message" => $mysqli->error,
+    ));
+    exit;
+  }
+  $stmt->bind_param('iss', $user_id, $date, $category);
 
+}
+
+$stmt->execute();
 $result = $stmt->get_result();
 if ($result->num_rows > 0) {
   $data = array();

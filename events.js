@@ -1,8 +1,14 @@
 function getEvents(day) {
+  var category = document.getElementById("categories").value;
+  console.log(category);
+  if (category == "Show All") {
+    category = "*"
+  }
+  console.log(category);
   var date = new Date(day);
   var sqlday = date.toISOString().substring(0,10);
   //console.log(sqlday);
-  var dataString = "date=" + encodeURIComponent(sqlday);
+  var dataString = "date=" + encodeURIComponent(sqlday) + "&category=" + encodeURIComponent(category);
 
   var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
   xmlHttp.open("POST", "getevents.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
@@ -65,10 +71,6 @@ function getEvents(day) {
       item.appendChild(document.createTextNode(ucategories[i]));
       item.setAttribute("id", ucategories[i]);
       document.getElementById("categories").appendChild(item);
-
-
-
-
     }
 
 }
@@ -258,7 +260,7 @@ function deleteEvent(){
   xmlHttp.open("POST", "deleteEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlHttp.addEventListener("load", function(event){
-    console.log(event.target.responseText);
+    // console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if(jsonData.success){
       updateCalendar(true);

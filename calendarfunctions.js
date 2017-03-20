@@ -143,15 +143,6 @@ function clearCalendar() {
     main.removeChild(main.lastChild);
   }
 
-  var cats = document.getElementById('categories');
-  if (cats.childNodes > 1) {
-    while (cats.childNodes){
-      cats.removeChild(cats.lastChild);
-    }
-
-  }
-
-
 }
 
 $(document).on("click", ".editable", function() {
@@ -182,7 +173,7 @@ $(document).on("change", "#categories", function() {
     updateCalendar(loggedin);
   }
   else {
-    console.log(cat);
+    updateCalendar(loggedin);
   }
 
 });
