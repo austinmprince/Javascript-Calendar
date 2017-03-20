@@ -143,6 +143,14 @@ function clearCalendar() {
     main.removeChild(main.lastChild);
   }
 
+  var cats = document.getElementById('categories');
+  if (cats.childNodes > 1) {
+    while (cats.childNodes){
+      cats.removeChild(cats.lastChild);
+    }
+
+  }
+
 
 }
 
@@ -166,6 +174,17 @@ $(document).on("click", "#save_btn", function() {
       $("#mydialog").dialog('close');
 
     }
+});
+
+$(document).on("change", "#categories", function() {
+  var cat = document.getElementById("categories").value;
+  if (cat == "Show All") {
+    updateCalendar(loggedin);
+  }
+  else {
+    console.log(cat);
+  }
+
 });
 
 $(document).on("click", "#save_changes_btn", function(){
@@ -208,32 +227,10 @@ $(document).on("click", ".extraevents", function() {
   }
 });
 
-// $(document).on("click", "#close_events", function(){
-//     if (loggedin == true) {
-//       console.log("Close box");
-//       $("#showmore").dialog('close');
-//       var main = document.getElementById('showmore');
-//       while (main.childNodes.length > 2) {
-//           main.removeChild(main.lastChild);
-//       }
-//
-//     }
-// });
-// $('#showmore').dialog({
-//    beforeClose: function(event, ui) {
-//      var main = document.getElementById('showmore');
-//      while (main.childNodes.length > 1) {
-//         main.removeChild(main.lastChild);
-//     }
-//        //call functions
-//
-//    }
-// });
 $( "#showmore" ).dialog({
-
   close: function() {
     if (loggedin == true) {
-    console.log("close me");
+
     var main = document.getElementById('showmore');
     while (main.childNodes.length > 1) {
       main.removeChild(main.lastChild);
@@ -253,8 +250,3 @@ $(document).ready(function () {
         }, 500);
     });
 });
-// $("tr").click(function() {     // function_td
-//   console.log("tr function");
-//   event.preventDefault();
-//   $(this).hide("slow");
-// });

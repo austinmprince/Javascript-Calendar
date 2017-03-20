@@ -132,9 +132,6 @@ function createEvent() {
   var time = document.getElementById("time").value;
   var notes = document.getElementById("description").value;
   var token = document.getElementById("csrf_token").value;
-  console.log(title);
-  console.log(date);
-  console.log(time);
   var dataString = "title=" + encodeURIComponent(title) + "&date=" + encodeURIComponent(date) + "&time=" + encodeURIComponent(time) + "&description=" + encodeURIComponent(notes) + "&token=" + encodeURIComponent(token);
   // var dataString = "title=" + encodeURIComponent(title) + "&date=" + date + "&time=" + time + "&description=" + notes;
   // document.write(dataString);
@@ -219,13 +216,11 @@ document.getElementById("save_changes_btn").addEventListener("click", saveChange
 
 function editEvent(event_id){
   var token = document.getElementById("csrf_token").value;
-  console.log(token);
   var dataString = "event_id=" + encodeURIComponent(event_id) + "&token=" + encodeURIComponent(token);
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.open("POST", "editEvent.php", true);
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xmlHttp.addEventListener("load", function(event){
-    console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if(jsonData.success){
       var title_elem = $('#title');
@@ -235,9 +230,6 @@ function editEvent(event_id){
       var save_btn = $('#save_btn');
       var save_changes_btn = $('#save_changes_btn');
       var dialog_box = $('#mydialog');
-
-
-      console.log("EDIT EVENT " + event_id);
 
       title_elem.val(jsonData.title);
       description_elem.val(jsonData.description);
