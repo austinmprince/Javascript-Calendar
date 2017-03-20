@@ -1,10 +1,10 @@
 function getEvents(day) {
   var category = document.getElementById("categories").value;
-  console.log(category);
+  //console.log(category);
   if (category == "Show All") {
     category = "*"
   }
-  console.log(category);
+  //console.log(category);
   var date = new Date(day);
   var sqlday = date.toISOString().substring(0,10);
   //console.log(sqlday);
@@ -15,7 +15,7 @@ function getEvents(day) {
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
   xmlHttp.addEventListener("load", function(event){
 
-    console.log(event.target.responseText);
+    //console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
 
     if(jsonData.false){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
@@ -47,7 +47,7 @@ function getEvents(day) {
       }
 
       else {
-        console.log("in extra");
+        //console.log("in extra");
         extraevents.appendChild(document.createTextNode(jsonData.events.length - 2 + " more events"));
         extraevents.setAttribute("id", sqlday);
         document.getElementById(sqlday).appendChild(extraevents);
@@ -65,7 +65,7 @@ function getEvents(day) {
 
     }
     var ucategories = categories.filter(onlyUnique);
-    console.log(categories);
+    console.log(ucategories);
     for (var i = 0; i < ucategories.length; i++) {
       var item = document.createElement("option");
       item.appendChild(document.createTextNode(ucategories[i]));
@@ -80,13 +80,7 @@ function getEvents(day) {
 xmlHttp.send(dataString); // Send the data
 
 }
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-}
 
-// // usage example:
-// var a = ['a', 1, 'a', 2, '1'];
-// var unique = a.filter( onlyUnique );
 function createBox(day) {
 
     var date = new Date(day);
@@ -142,7 +136,7 @@ function createEvent() {
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");// It's easy to forget this line for POST requests
 
   xmlHttp.addEventListener("load", function(event){
-    console.log(event.target.responseText);
+    //console.log(event.target.responseText);
     var jsonData = JSON.parse(event.target.responseText);
     if (jsonData.success) {
       updateCalendar(loggedin);

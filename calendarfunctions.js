@@ -199,7 +199,7 @@ $(document).on("click", "#delete_event_btn", function(){
 $(document).on("click", ".events", function(){
   editEvent(this.id);
   $("#mydialog").dialog();
-  console.log('clicked');
+  //console.log('clicked');
   document.getElementById("single_event_id").value = event.target.id;
 });
 
@@ -209,7 +209,7 @@ $('.events').hover(function() {
 });
 $(document).on("click", ".extraevents", function() {
   if (loggedin) {
-    console.log("Extra events");
+    //console.log("Extra events");
     //console.log(event.target.id);
     //console.log(getEvents(event.target.id));
     $("#showmore").dialog();
@@ -234,7 +234,7 @@ $( "#showmore" ).dialog({
 
 $(document).ready(function () {
     $(".extraevents").hover(function () {
-      console.log("hovering");
+      //console.log("hovering");
         $(this).animate({
             borderBottom: '2px solid #3399FF',
             width : '46%'
